@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Task 2</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8"/>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <h1>N<span id="header-logo">++<span></h1>
+        <nav class="main-menu">
+          <ul class="main-menu-list">
+            <li><a id="link-one" href="#Chapter-one">PRODUCTS</a></li>
+            <li><a id="link-two" href="#Chapter-two">ABOUT US</a></li>
+            <li><a id="link-three" href="#Chapter-three">CONTACT US</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main class="main-content">
+        <section class="section-one">
+          <div class="image">
+            <img id="apple" src="APPLE.png" alt="Iphone 6">
+          </div>
+          <div class="description">
+            <h1>Our awesome app is ready to use!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pariatur vero laboriosam adipisci dolored aut blanditiis necessitatibus inventore, eius fuga porro recusandae sint quis aliquam nam iure nihil beatae, atque quod!</p>
+            <a href="">Buy now!</a>
+          </div>
+        </section>
+        <section class="section-two">
+          <div id="tech-one" class="tech">
+            <div class="icon">
+              <i class="fa fa-code"></i>
+            </div>
+            <p>Web development</p>
+            <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</article>
+          </div>
+          <div id="tech-two" class="tech">
+            <div class="icon">
+              	<i class="fa fa-android"></i>
+            </div>
+            <p>Mobile development</p>
+            <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</article>
+          </div>
+          <div id="tech-three" class="tech">
+            <div class="icon">
+              	<i class="w3-xxlarge fa fa-cloud"></i>
+            </div>
+            <p>Hightload</p>
+            <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</article>
+          </div>
+        </section>
+        <section class="section-three">
+          <h1>Contact us!</h1>
+          <form class="contact-form" action="/action_page.php">
+            <input class="big-input" type="text" name="firstname" placeholder="Type here you name, please"><br>
+            <input class="big-input" type="text" name="email" placeholder="Type here your email, please"><br>
+            <input class="big-input" type="text" name="tel" placeholder="Type here your phone, please"><br>
+            <input class="big-input" type="url" placeholder="Add your homepage, please" name="homepage"><br>
+            Male&nbsp;<input type="radio" name="gender" value="male" checked>
+            Female&nbsp;<input type="radio" name="gender" value="female">
+            Other&nbsp;<input type="radio" name="gender" value="other"><br>
+            I have developer experiense&nbsp;<input type="checkbox" name="vehicle1" value="Bike">
+            I haven't developer experiense (but I tryed)&nbsp;<input type="checkbox" name="vehicle2" value="Car"><br>
+            Select your favorite color:&nbsp;
+            <input type="color" name="favcolor" value="#ff0000"><br>
+            Birthday:&nbsp;<input type="date" name="bday"><br>
+            Your wishes:<br>
+            <textarea rows="10" cols="45" name="text"></textarea><br>
+            <input class="submit" type="submit" value="Send Email!">
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
