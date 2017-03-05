@@ -1,0 +1,216 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Arial', Gadget, sans-serif;
+}
+
+.header {
+  display: -webkit-flex;
+  display: flex;
+  background: white;
+  height: 84px;
+}
+
+.header h1 {
+  width: 26%;
+  text-align: right;
+  font-size: 64px;
+  padding-top: 3px;
+}
+
+.header h1  span {
+  margin-left: 8px;
+}
+
+#header-logo {
+  color: rgb(26, 188, 156);
+}
+
+.wrapper {
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+  background-color: rgb(26, 188, 156);
+}
+
+.main-menu {
+  width: 58%;
+}
+
+.main-menu-list {
+  display: -webkit-flex;
+  display: flex;
+  list-style-type: none;
+  justify-content: flex-end;
+}
+
+#link-one {
+  padding-right: 35px;
+}
+
+#link-two {
+  padding-right: 30px;
+}
+
+/*#link-three {
+ margin-right: 265px;
+}*/
+
+.main-menu-list a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 33px;
+  padding-bottom: 36px;
+}
+
+.main-menu-list a:hover {
+  background: rgb(26, 188, 156);
+}
+
+.section-one {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+}
+
+.image::after {
+  content: "";
+  width: 200px;
+}
+
+.image {
+  width: 42%;
+}
+
+#apple {
+  float: right;
+  padding-top: 61px;
+  height: 498px;
+  width: 400px;
+}
+
+.description {
+  width: 50%;
+  margin-top: 126px;
+  color: white;
+  text-align: justify;
+  padding-left: 78px;
+}
+
+.description h1 {
+  font-size: 32px;
+}
+
+.description p {
+  display: inline-block;
+  margin-top: 50px;
+  font-size: 19px;
+}
+
+.description a {
+  display: block;
+  margin-top: 72px;
+  padding: 10px 20px;
+  font-size: 24px;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 7px;
+  color: white;
+  width: 143px;
+}
+
+.section-two {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin-top: 57px;
+  padding-left: 20px;
+  height: 400px;
+}
+
+.tech {
+  text-align: center;
+  width: 364px;
+  margin-top: 60px;
+}
+
+.icon {
+  color: white;
+  background-color: rgb(26, 188, 156);
+  border-radius: 50%;
+  width: 85px;
+  height: 85px;
+  margin: 0 auto;
+}
+
+.icon i {
+  font-size: 40px;
+  text-align: center;
+  padding: 22px;
+}
+
+.tech p {
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 20px;
+}
+
+.tech article {
+  margin-top: 17px;
+  line-height: 24px;
+}
+
+.section-three {
+  margin-top: 10px;
+  padding-bottom: 30px;
+}
+
+.section-three h1 {
+  text-align: center;
+  margin-top: 60px;
+  margin-left: 25px;
+  color: white;
+  font-size: 33px;
+}
+
+.contact-form {
+  color: white;
+  text-align: center;
+  margin-top: 44px;
+}
+
+.big-input {
+    width: 575px;
+    height: 30px;
+}
+
+input {
+  margin: 6px 0;
+}
+
+.big-text-input {
+    width: 575px;
+    height: 150px;
+}
+
+.submit {
+  background-color: rgb(26, 188, 156);
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 7px;
+}

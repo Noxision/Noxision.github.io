@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Arial', Gadget, sans-serif;
+}
+
+.header {
+  background: #f1c40f;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.header h1 {
+  padding: 10px;
+}
+
+.wrapper {
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+}
+
+.main-menu {
+  background-color: #2ecc71;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.main-menu-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main-menu-list li {
+  float: left;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.main-menu-list a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border: 1px solid black;
+}
+
+.main-menu-list a:hover {
+  background: #1abc9c;
+}
+
+.main-content {
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1;
+}
+
+.main-content {
+  padding: 0 10px;
+}
+
+section article {
+  margin: 0 10px;
+  padding: 10px 0;
+  text-align: justify;
+}
+
+article p {
+  text-indent: 25px;
+  margin-top: 10px;
+  background: #ecf0f1;
+}
+
+.footer {
+  border-top: 1px solid black;
+  background: #f1c40f;
+  text-align: center;
+}
+
+@media all and (min-width: 800px) {
+   .main-content { flex-flow: row nowrap;}
+   .section-two {
+     border-left: 1px solid black;
+     border-right: 1px solid black;
+   }
+}
