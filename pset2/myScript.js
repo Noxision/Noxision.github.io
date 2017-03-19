@@ -1,156 +1,296 @@
-//----------------------Task1-----------------------------
+function getElem(id) {
+    return document.getElementById(id);
+}
+
+function click(id, func) {
+    getElem(id).addEventListener("click", func);
+}
+
+function print(id, value) {
+    getElem(id).innerHTML = value;
+}
+
+function resetValidation(id) {
+    if (getElem(id).innerHTML != "") {
+        print(id, "");
+    }
+}
+
+// ----------------------Task1-----------------------------
+click("task1-button", task1);
+click("task1-reset", resetTask1);
 
 function task1() {
     var sum = 0;
-    for (i = -1000; i <= 1000; ++i)
+
+    for (var i = -1000; i <= 1000; ++i) {
         sum += i;
-    return sum;
+    }
+
+    print("task1", "Ответ: " + sum);
 }
 
-//----------------------Task2-----------------------------
+// Функция даного типа обнуляет все действия пользователя
+function resetTask1() {
+    print("task1", "");
+}
+
+// ----------------------Task2-----------------------------
+click("task2-button", task2);
+click("task2-reset", resetTask2);
 
 function task2() {
     var sum = 0;
-    for (i = -1000; i <= 1000; ++i) {
-        if (Math.abs(i)%10 == 2 || Math.abs(i)%10 == 3 || Math.abs(i)%10 == 7) {
+
+    for (var i = -1000; i <= 1000; ++i) {
+        if (Math.abs(i) % 10 == 2 ||
+            Math.abs(i) % 10 == 3 ||
+            Math.abs(i) % 10 == 7) {
             sum += i;
         }
     }
-    return sum;
+
+    print("task2", "Ответ: " + sum);
 }
 
-//----------------------Task3-----------------------------
+function resetTask2() {
+    print("task2", "");
+}
+
+// ----------------------Task3-----------------------------
+click("task3-button", task3);
+click("task3-reset", resetTask3);
 
 function task3() {
-    var string = "", subString = "";
-    for (i = 0; i < 50; ++i) {
-        for (j = 0; j <= i; ++j) {
+    var string = "";
+    var subString = "";
+
+    for (var i = 0; i < 50; ++i) {
+        for (var j = 0; j <= i; ++j) {
             subString += "*";
         }
         string += subString + "<br>";
         subString = "";
     }
-    return string;
+
+    print("task3", string);
 }
 
-//----------------------Task4-----------------------------
+function resetTask3() {
+    print("task3", "");
+}
+
+// ----------------------Task4-----------------------------
+click("task4-button", task4);
+click("task4-reset", resetTask4);
 
 function task4() {
-    var inpObj = document.getElementById("inpTask4");
-    if (inpObj.checkValidity() == false) {  //Проверка введенного числа
-        document.getElementById("Task4").innerHTML = inpObj.validationMessage;
+    var inpObj = getElem("input-task4");
+
+    /* Условие даного типа проверяет валидность и выводит сообщение
+    при несоответствии введенных данных */
+    if (inpObj.checkValidity() == false) {
+        resetValidation("task4");
+        print("error-task4", inpObj.validationMessage);
     } else {
-        inpObj = inpObj.value;
+        resetValidation("error-task4");
         var output = "";
-        var hours = Math.floor(inpObj/3600);    //Нахождене часов, минут, секунд
-        var mints = Math.floor((inpObj - hours*3600)/60);
-        var secds = Math.floor(inpObj - hours*3600 - mints*60);
 
-        output  += checkTask4(hours)
-                + ":" + checkTask4(mints)
-                + ":" + checkTask4(secds);
+        /* Исходя из того что в сутках 86400 секунд команда ниже
+        изымает из введенного значения количество целых суток,
+        которое не выводится пользователю (по условию задачи)
+        и приводит его к суточному значению.*/
+        inpObj = inpObj.value % 86400;
 
-        document.getElementById("Task4").innerHTML = output;
+        /* Условие ниже на основании того что на часах "24:00:00" == "00:00:00"
+         определяет настоящее количество прошедшего времени. */
+        if (inpObj == 0) {
+            print("task4", "Ответ: 24:00:00");
+        } else {
+
+            // Вычисление количества часов, минут, секунд
+            var hours = Math.floor(inpObj / 3600);
+            var mints = Math.floor((inpObj - hours * 3600) / 60);
+            var secds = Math.floor(inpObj - hours * 3600 - mints * 60);
+
+            output  += makeOutStr(hours)
+                    + ":" + makeOutStr(mints)
+                    + ":" + makeOutStr(secds);
+
+            print("task4", "Ответ: " + output);
+        }
     }
 }
 
-function checkTask4(n) {   //Добавление 0 к значению в итоговую строку, если значение имеет один символ
+// Добавление "0" к значению в итоговую строку, если значение имеет один символ.
+function makeOutStr(data) {
     var str = "";
-    if (n < 10) {
-        str += "0" + n;
+    if (data < 10) {
+        str += "0" + data;
     } else {
-        str += n;
+        str += data;
     }
     return str;
 }
 
-function resetTask4() {    //Откатываем все как было
-    document.getElementById("inpTask4").value = "";
-    document.getElementById("Task4").innerHTML =
-    "Пользователь вводит время в секундах. Вывести в формате: ч:мин:сек (01:05:20).";
+function resetTask4() {
+    getElem("input-task4").value = "";
+    print("task4", "");
+    print("error-task4", "");
 }
 
-//----------------------Task5-----------------------------
+// ----------------------Task5-----------------------------
+click("task5-button", task5);
+click("task5-reset", resetTask5);
 
 function task5() {
-    var inpObj = document.getElementById("inpTask5");
-    if (inpObj.checkValidity() == false) {  //Проверка введенного числа
-        document.getElementById("Task5").innerHTML = inpObj.validationMessage;
+    var inpObj = getElem("input-task5");
+    if (inpObj.checkValidity() == false) {
+        resetValidation("task5");
+        print("error-task5", inpObj.validationMessage);
     } else {
-        inpObj = inpObj.value;
+        resetValidation("error-task5");
         var output = "";
 
-        if (11 <= inpObj && inpObj <=19) {  //Выставление имя существительного относительно падежа
+        inpObj = inpObj.value;
+        var lastDigit = inpObj % 10;
+
+        // Условие ниже добавляет правильное имя существительное для падежа.
+        if (11 <= getLastDigits(inpObj) && getLastDigits(inpObj) <= 19) {
             output += inpObj + " лет";
-        } else if (0 == inpObj%10 || (5 <= inpObj%10 || inpObj&10 <=9)) {
+        } else if (0 == lastDigit || (5 <= lastDigit && lastDigit <= 9)) {
             output += inpObj + " лет";
-        } else if (1 == inpObj%10) {
+        } else if (1 == lastDigit) {
             output += inpObj + " год";
         } else {
             output += inpObj + " года";
         }
 
-    document.getElementById("Task5").innerHTML = output;
+    return print("task5", "Ответ: " + output);
     }
 }
 
-function resetTask5() {
-    document.getElementById("inpTask5").value = "";   //Откатываем все как было
-    document.getElementById("Task5").innerHTML =
-    'Для указанного возраста студента вывести фразу вида "22 года" ( 1 год, 20 лет....).';
+// Функция ниже возвращает две последние цифры введенного числа.
+function getLastDigits(years) {
+    if (years < 100) {
+        return years;
+    }
+    return years - (Math.floor(years / 100) * 100);
 }
 
-//----------------------Task6-----------------------------
+function resetTask5() {
+    getElem("input-task5").value = "";
+    print("task5", "");
+    print("error-task5", "");
+}
+
+// ----------------------Task6-----------------------------
+click("task6-button", task6);
+click("task6-reset", resetTask6);
+
+var patternTask6 = "((January|March|April|May|June|July|August|September|\
+October|November|December) ([3][0-1]|[1-2][0-9]|[1-9])|February \
+([2][0-8]|[1][0-9]|[1-9])), [0-9]{1,4} ([2][0-3]|[0-1][0-9]):\
+[0-5][0-9]:[0-5][0-9]";
 
 function task6() {
-    var date1 = document.getElementById("inpTask6-1");
-    var date2 = document.getElementById("inpTask6-2");
+    getElem("date1-task6").pattern = patternTask6;
+    getElem("date2-task6").pattern = patternTask6;
 
-    if (date1.checkValidity() == false) {   //Проверка введенных дат на соответствие шаблону
-    document.getElementById("Task6").innerHTML = "Date 1: " + date1.validationMessage;
+    var date1 = getElem("date1-task6");
+    var date2 = getElem("date2-task6");
+
+    if (date1.checkValidity() == false) {
+        resetValidation("task6");
+        print("error-task6", "Дата 1: " + date1.validationMessage);
     } else if (date2.checkValidity() == false) {
-    document.getElementById("Task6").innerHTML = "Date 2: " + date2.validationMessage;
+        resetValidation("task6");
+        print("error-task6", "Дата 2: " + date2.validationMessage);
     } else {
-        date1 = Date.parse(date1.value)/1000;   //Получение времени в секундах
-        date2 = Date.parse(date2.value)/1000;
+        resetValidation("error-task6");
+        date1 = new Date(date1.value);
+        date2 = new Date(date2.value);
 
-        var time = [];  //Массив итоговых значений [год, месяц, день, час, минута, секунда]
+        var time = [];
         var str = "";
 
-        var odds = Math.abs(date1 - date2); //Определение разницы между датами
-        time = fillTheArray(odds, time);    //Заполнение итогового массива
+        time = getTime(time, date1, date2);
 
-        document.getElementById("Task6").innerHTML = fillTheStr(str, time); //Создание строки с итоговыми значениями
+        print("task6", getString(str, time));
   }
 }
 
-function fillTheArray(odds, time) {
-    time[0] = Math.floor(odds/31536000);    //Определения количества лет
+function getTime(time, date1, date2) {
+    var date1_s = date1.getTime();
+    var date2_s = date2.getTime();
 
-    time[1] = Math.floor((odds - time[0] * 31536000) / 2628000);    //Определения количества месяцев
+    if (date2_s > date1_s) {
+        var temp = date2;
+        date2 = date1;
+        date1 = temp;
+    }
 
-    time[2] = Math.floor((odds - time[0] * 31536000
-                               - time[1] * 2628000) / 86400);   //Определения количества дней
+    if (((date1.getTime() - date2.getTime()) / 1000) >= 31536000) {
+        time[0] = date1.getFullYear() - date2.getFullYear();
+    } else {
+        time[0] = 0;
+    }
 
-    time[3] = Math.floor((odds - time[0] * 31536000
-                               - time[1] * 2628000
-                               - time[2] * 86400) / 3600);  //Определения количества часов
+    if (date1.getMonth() < date2.getMonth()) {
+        time[1] = date1.getMonth() - date2.getMonth() + 12;
+        if (time[0]) {
+            --time[0];
+        }
+    } else if ((date1.getMonth() == date2.getMonth()) &&
+                (date1.getDate() < date2.getDate())) {
+        time[1] = 11;
+        if (time[0]) {
+            --time[0];
+        }
+    } else {
+        time[1] = date1.getMonth() - date2.getMonth();
+    }
 
-    time[4] = Math.floor((odds - time[0] * 31536000
-                               - time[1] * 2628000
-                               - time[2] * 86400
-                               - time[3] * 3600) / 60); //Определения количества минут
+    if (date1.getDate() < date2.getDate()) {
+        time[2] = date1.getDate() - date2.getDate() + 30;
+        if (time[1] && time[1] != 11) {
+            --time[1];
+        }
+    } else {
+        time[2] = date1.getDate() - date2.getDate();
+    }
 
-    time[5] =  Math.floor(odds - time[0] * 31536000
-                               - time[1] * 2628000
-                               - time[2] * 86400
-                               - time[3] * 3600
-                               - time[4] * 60); //Определения количества секунд
+    if (date1.getHours() < date2.getHours()) {
+        time[3] = date1.getHours() - date2.getHours() + 24;
+        if (time[2]) {
+            --time[2];
+        }
+    }   else {
+        time[3] = date1.getHours() - date2.getHours();
+    }
+
+    if (date1.getMinutes() < date2.getMinutes()) {
+        time[4] = date1.getMinutes() - date2.getMinutes() + 60;
+        if (time[3]) {
+            --time[3];
+        }
+    }   else {
+        time[4] = date1.getMinutes() - date2.getMinutes();
+    }
+
+    if (date1.getSeconds() < date2.getSeconds()) {
+        time[5] = date1.getSeconds() - date2.getSeconds() + 60;
+        if (time[4]) {
+            --time[4];
+        }
+    }   else {
+        time[5] = date1.getSeconds() - date2.getSeconds();
+    }
     return time;
 }
 
-function fillTheStr(str, time) {
-    var words = [["год", "года", "лет"],  //Массив имя существительных для формирования итоговой строки
+function getString(str, time) {
+    var words = [["год", "года", "лет"],
                 ["месяц", "месяца", "месяцев"],
                 ["день", "дня", "дней"],
                 ["час", "часа", "часов"],
@@ -159,22 +299,29 @@ function fillTheStr(str, time) {
 
     str = "Между датами прошло";
     var temp = str;
-    for (i = 0; i < 6; ++i) {
-        if (time[i] != 0)   //Отсеивание пустых значений
+    for (var i = 0; i < 6; ++i) {
+        // Отсеивание пустых значений
+        if (time[i] == 0) continue;
         str += checkTheWords(time[i], words[i]);
     }
-    if(str == temp)   //Проверка на одинакововведенное время
+    if(str == temp) {
         str = "Нисколько не прошло";
+    }
     return str;
 }
 
-function checkTheWords(time, words) {   //Формирование итоговой строки
+// Формирование итоговой строки
+function checkTheWords(time, words) {
     var output = " ";
-    if (11 <= time && time <=19) {
+
+    var lastDigit = time % 10;
+
+    // Условие ниже добавляет правильное имя существительное для падежа.
+    if (11 <= getLastDigits(time) && getLastDigits(time) <= 19) {
         output += time + " " + words[2];
-    } else if (0 == time%10 || (5 <= time%10 || time&10 <=9)) {
+    } else if (0 == lastDigit || (5 <= lastDigit && lastDigit <= 9)) {
         output += time + " " + words[2];
-    } else if (1 == time%10) {
+    } else if (1 == lastDigit) {
         output += time + " " + words[0];
     } else {
         output += time + " " + words[1];
@@ -183,27 +330,36 @@ function checkTheWords(time, words) {   //Формирование итогов�
 }
 
 function resetTask6() {
-    document.getElementById("inpTask6-1").value = "";
-    document.getElementById("inpTask6-2").value = "";
-    document.getElementById("Task6").innerHTML =
-    'Пользователь вводит две даты (в формате "October 13, 2014 11:13:00"). Вычислить промежуток времени прошедший между датами.';
+    getElem("date1-task6").value = "";
+    getElem("date2-task6").value = "";
+    print("task6", "");
+    print("error-task6", "");
 }
 
-//----------------------Task7-----------------------------
+// ----------------------Task7-----------------------------
+click("task7-button", task7);
+click("task7-reset", resetTask7);
+
+var patternTask7 = "[0-9]{4}-([0][1-9]|\
+[1][0-2])-([3][0-1]|[1-2][0-9]|[0][1-9])";
 
 function task7() {
-    var date = document.getElementById("inpTask7");
+    getElem("horoscope-date").pattern = patternTask7;
+    var date = getElem("horoscope-date");
 
     if (date.checkValidity() == false) {
-        document.getElementById("Task7-1").innerHTML = date.validationMessage;
+        resetValidation("task7");
+        resetValidation("image-task7");
+        print("error-task7", date.validationMessage);
     } else {
-        date = date.value;
-        date = date.split("-");
+        resetValidation("error-task7");
+        date = date.value.split("-");
         var day = parseInt(date[2]);
         var month = parseInt(date[1]);
 
-        var horoscope = [[''], //Массив со знаками гороскопа
-                        [19,'Козерог'],
+        // Массив со знаками гороскопа
+        var horoscope = [[''],
+                        [20,'Козерог'],
     	                [18,'Водолей'],
     	                [20,'Рыбы'],
     	                [19,'Овен'],
@@ -212,177 +368,226 @@ function task7() {
     	                [22,'Рак'],
     	                [22,'Лев'],
     	                [22,'Дева'],
-    	                [22,'Весы'],
+    	                [23,'Весы'],
     	                [22,'Скорпион'],
     	                [21,'Стрелец']];
 
-        if (day > horoscope[month][0])  //Определение месяца гороскопа
-            month = ++month%12; //Выставление количества месяцев не более 12
+        // Условие ниже определяет месяц гороскопа
+        if (day > horoscope[month][0]) {
+            month = ++month;
+            if (month != 12) {
+                month %= 12;
+            }
+        }
 
-        document.getElementById("Task7-1").innerHTML = horoscope[month][1];
-        document.getElementById("Task7-2").innerHTML = '<img src="img/'+ month +'.jpg">';
+        print("task7", horoscope[month][1]);
+        print("image-task7", '<img src="img/'+ month +'.jpg">');
     }
 }
 
 
 function resetTask7() {
-    document.getElementById("inpTask7").value = "";
-    document.getElementById("Task7-1").innerHTML =
-    'Пользователь вводит дату в формате 2014-12-27, а возвращает знак зодиака в этот день (с картинкой).';
-    document.getElementById("Task7-2").innerHTML = '';
+    getElem("horoscope-date").value = "";
+    print("task7", "");
+    print("image-task7", "");
+    print("error-task7", "");
 }
 
-//----------------------Task8-----------------------------
+// ----------------------Task8-----------------------------
+click("task8-button", task8);
+click("task8-reset", resetTask8);
 
 function task8() {
-    var h = document.getElementById("inpTask8-1");
-    var w = document.getElementById("inpTask8-2");
-    if (h.checkValidity() == false) {
-        document.getElementById("Task8").innerHTML = "Date 1: " + h.validationMessage;
-    } else if (w.checkValidity() == false) {
-        document.getElementById("Task8").innerHTML = "Date 2: " + w.validationMessage;
+    var height = getElem("chessboard-height");
+    var width = getElem("chessboard-width");
+    if (height.checkValidity() == false) {
+        resetValidation("task8");
+        print("error-task8", "Значение высоты: " + height.validationMessage);
+    } else if (width.checkValidity() == false) {
+        resetValidation("task8");
+        print("error-task8", "Значение ширины: " + width.validationMessage);
     } else {
-        h = h.value;
-        w = w.value;
-        var style =
-        'style="border: 1px solid black; border-collapse: collapse;"';  //Создание стиля для доски
+        height = height.value;
+        width = width.value;
 
-        var output = '<table ' + style + ' >';  //Создание таблицы для доски
-        for (i = 0; i < h; ++i) {   //Отрисовываниие рядов
+        // Создание стиля для доски
+        var style =
+        'style="border: 1px solid black; border-collapse: collapse;"';
+
+        // Создание таблицы для доски
+        var output = '<table ' + style + ' >';
+        for (i = 0; i < height; ++i) {
             output += '<tr ' + style + ' >';
-            for(j = 0; j < w; ++j) {    //Отрисовывание строк
+            for(j = 0; j < width; ++j) {
                 var color = "";
-                (i+j)%2 == 0 ? color = "yellow;" : color = "black;";    //Изменение цвета ячейки
-                output +=
-                '<td style="width:50px;height:50px;background-color:' + color + '" ></td>'; //Отрисовывание клетки
+
+                // Изменение цвета ячейки
+                (i+j)%2 == 0 ? color = "yellow;" : color = "black;";
+
+                // Отрисовывание клетки
+                output += '<td style="width:30px;height:30px;background-color:'
+                          + color + '" ></td>';
             }
             output += '</tr>';
         }
         output += '</table>';
 
-        document.getElementById("Task8").innerHTML = output;
+        print("task8", output);
     }
 }
 
 function resetTask8() {
-    document.getElementById("inpTask8-1").value = "";
-    document.getElementById("inpTask8-2").value = "";
-    document.getElementById("Task8").innerHTML = '';
+    getElem("chessboard-height").value = "";
+    getElem("chessboard-width").value = "";
+    print("task8", "");
+    print("error-task8", "");
 }
 
-//----------------------Task9-----------------------------
+// ----------------------Task9-----------------------------
+click("task9-button", task9);
+click("task9-reset", resetTask9);
 
 function task9() {
-    var porches = document.getElementById("inpTask9-1");
-    var flats = document.getElementById("inpTask9-3");
-    var levels = document.getElementById("inpTask9-2");
-    var numberFlat = document.getElementById("inpTask9-4");
+    var porches = getElem("porches-task9");
+    var levels = getElem("levels-task9");
+    var flats = getElem("flats-task9");
+    var numberFlat = getElem("needful-flat-task9");
     if (porches.checkValidity() == false) {
-        document.getElementById("Task9").innerHTML = "Input 1: " + porches.validationMessage;
-    } else if (flats.checkValidity() == false) {
-        document.getElementById("Task9").innerHTML = "Input 3: " + flats.validationMessage;
+        resetValidation("task9");
+        print("error-task9", "Подъезды: " + porches.validationMessage);
     } else if (levels.checkValidity() == false) {
-        document.getElementById("Task9").innerHTML = "Input 2: " + levels.validationMessage;
+        resetValidation("task9");
+        print("error-task9", "Этажи: " + levels.validationMessage);
+    } else if (flats.checkValidity() == false) {
+        resetValidation("task9");
+        print("error-task9", "Квартиры на этаже: " + flats.validationMessage);
     } else if (numberFlat.checkValidity() == false) {
-        document.getElementById("Task9").innerHTML = "Input 4: " + numberFlat.validationMessage;
+        resetValidation("task9");
+        print("error-task9", "№ квартиры: " + numberFlat.validationMessage);
     } else {
-        porches = porches.value;    //Количество подъездов
-        flats = flats.value;    //Количество квартир в пролете
-        levels = levels.value;  //Количество этажей
-        numberFlat = numberFlat.value;  //Номер нужной квартиры
+        resetValidation("error-task9");
+        porches = porches.value;
+        flats = flats.value;
+        levels = levels.value;
+        numberFlat = numberFlat.value;
 
-        allNumbers = porches * flats * levels;  //Наибольшее количество квартир в доме
+        // Наибольшее количество квартир в доме
+        allFlats = porches * flats * levels;
 
-        if (numberFlat > allNumbers)    //Определение существования искомой квартиры в доме
-        document.getElementById("Task9").innerHTML = "Такой квартиры в доме нет!";
-        else {
-            var output = "";
-            output = findLocation(output, porches, flats, levels, numberFlat);  //
-            document.getElementById("Task9").innerHTML = output;
+        // Определение существования искомой квартиры в доме
+        if (numberFlat > allFlats) {
+            resetValidation("task9");
+            print("error-task9", "Введите число от 1 до " + allFlats);
+        } else {
+            print("task9", findLocation(flats, levels, numberFlat));
         }
     }
 }
 
-function findLocation(output, porches, flats, levels, numberFlat) {
-    var flatsInPorche = flats * levels; //Находим количество количество квартир в подъезде
-    var porcheLocation = 0; //Искомый подъезд
-    for(temp = numberFlat; temp > 0; ++porcheLocation) {
+function findLocation(flats, levels, numberFlat) {
+
+    // Находим количество количество квартир в подъезде
+    var flatsInPorche = flats * levels;
+
+    // Искомый подъезд
+    var porcheLocation = 0;
+    for (var temp = numberFlat; temp > 0; ++porcheLocation) {
         numberFlat = temp;
         temp -= flatsInPorche;
     }
-    var levelLocation = 0;  //Искомый этаж
-    for (temp = numberFlat; temp > 0; ++levelLocation) {
+
+    // Искомый этаж
+    var levelLocation = 0;
+    for (var temp = numberFlat; temp > 0; ++levelLocation) {
         numberFlat = temp;
         temp -= flats;
     }
-    return output = "Подъезд: " + porcheLocation + " этаж: " + levelLocation;
+    return "Подъезд: " + porcheLocation + ",  этаж: " + levelLocation;
 }
 
 function resetTask9() {
-    document.getElementById("inpTask9-1").value = "";
-    document.getElementById("inpTask9-2").value = "";
-    document.getElementById("inpTask9-3").value = "";
-    document.getElementById("inpTask9-4").value = "";
-    document.getElementById("Task9").innerHTML =
-    'Определить номер подъезда и этаж по номеру квартиры.';
+    getElem("porches-task9").value = "";
+    getElem("levels-task9").value = "";
+    getElem("flats-task9").value = "";
+    getElem("needful-flat-task9").value = "";
+    print("task9", "");
+    print("error-task9", "");
 }
 
 
-//----------------------Task10-----------------------------
+// ----------------------Task10-----------------------------
+click("task10-button", task10);
+click("task10-reset", resetTask10);
 
 function task10() {
-    var inpObj = document.getElementById("inpTask10");
+    var inpObj = getElem("digit-task10");
     if (inpObj.checkValidity() == false) {
-        document.getElementById("Task10").innerHTML = inpObj.validationMessage;
+        resetValidation("task10");
+        print("error-task10", inpObj.validationMessage);
     } else {
+        resetValidation("error-task10");
+
         inpObj = inpObj.value;
+
         var output = 0;
         output = getSum(inpObj, output);
 
-        document.getElementById("Task10").innerHTML = output;
+        print("task10", output);
     }
 }
 
 function getSum(inpObj, output) {
     if (inpObj <= 0)
         return output;
-    var digit = inpObj%10;
-    output += digit;
-    inpObj = Math.floor(inpObj/10);
+    output += inpObj % 10;
+    inpObj = Math.floor(inpObj / 10);
     return getSum(inpObj, output);
 }
 
 function resetTask10() {
-    document.getElementById("inpTask10").value = "";
-    document.getElementById("Task10").innerHTML = 'Найти сумму цифр введённого числа.';
+    getElem("digit-task10").value = "";
+    print("task10", "");
+    print("error-task10", "");
 }
 
-//----------------------Task11-----------------------------
+// ----------------------Task11-----------------------------
+click("task11-reset", resetTask11);
 
 function task11() {
-    var inpObj = document.getElementById("inpTask11").value;
-    var links = inpObj.split(",");  //Разбирание строки на отдельные ссылки
+    var inpObj = getElem("links-task11").value;
+
+    // Разбирание строки на отдельные ссылки
+    var links = inpObj.split(",");
     var output = "";
 
-    for (i = 0; i < links.length; ++i) {
-        links[i] = links[i].trim().split("//"); //Разбирание протокол и тело ссылки
-        var temp = links[i][0]; //Замена местами протокола и тела ссылки для сортировки
+    for (var i = 0; i < links.length; ++i) {
+
+        // Разбирание на протокол и тело ссылки
+        links[i] = links[i].trim().split("//");
+
+        // Замена местами протокола и тела ссылки для сортировки
+        var temp = links[i][0];
         links[i][0] = links[i][1];
         links[i][1] = temp;
     }
 
     links.sort();
 
-    output = "<ol>";    //Создание списка
-    for (i = 0; i < links.length; ++i) {
-        output += '<li><a href="' + links[i][1] + "//" + links[i][0] + '">' + links[i][0] + '</a></li>';
+    // Создание списка
+    output = "<ol>";
+    for (var i = 0; i < links.length; ++i) {
+        if (typeof links[i][0] != "undefined" &&
+            typeof links[i][1] != "undefined") {
+            output += '<li><a href="' + links[i][1] +
+                      "//" + links[i][0] + '">' + links[i][0] + '</a></li>';
+        }
     }
 
-    document.getElementById("Task11").innerHTML = output + "</ol>";
+    print("task11", output + "</ol>");
 }
 
 function resetTask11() {
-    document.getElementById("inpTask11").value = "";
-    document.getElementById("Task11").innerHTML =
-    'Дан некий textarea, в который пользователь вводит ссылки через запятую. Когда textarea станет неактивным удалить http:// и https:// из ссылок и вывести их отсортированным по алфавиту списком ссылок.';
+    getElem("links-task11").value = "";
+    print("task11", "");
+    print("error-task11", "");
 }

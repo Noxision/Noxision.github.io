@@ -1,108 +1,141 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <title>Pset 2</title>
-    <meta charset="utf-8"/>
-  </head>
-  <body>
-    <h1>1)</h1>
-
-    <p id="Task1">посчитать сумму чисел от -1000 до 1000.</p>
-
-    <button type="button" onclick='document.getElementById("Task1").innerHTML = task1();'>Посчитать!</button>
-    <button type="button" onclick='document.getElementById("Task1").innerHTML = "посчитать сумму чисел от -1000 до 1000."'>Сброс!</button>
-
-    <h1>2)</h1>
-
-    <p id="Task2">посчитать сумму чисел от -1000 до 1000, суммируя только числа которые заканчиваются на 2,3, и 7.</p>
-
-    <button type="button" onclick='document.getElementById("Task2").innerHTML = task2();'>Посчитать!</button>
-    <button type="button" onclick='document.getElementById("Task2").innerHTML = "посчитать сумму чисел от -1000 до 1000, суммируя только числа которые заканчиваются на 2,3, и 7."'>Сброс!</button>
-
-    <h1>3)</h1>
-
-    <p id="Task3">вывести на страницу список из 50 элементов.</p>
-
-    <button type="button" onclick='document.getElementById("Task3").innerHTML = task3();'>Вывести!</button>
-    <button type="button" onclick='document.getElementById("Task3").innerHTML = "вывести на страницу список из 50 элементов."'>Сброс!</button>
-
-    <h1>4)</h1>
-
-    <p id="Task4">Пользователь вводит время в секундах. Вывести в формате: ч:мин:сек (01:05:20).</p>
-
-    <input id="inpTask4" type="number" min="1" max="86400" required>
-    <button type="button" onclick='task4();'>Вывести!</button>
-    <button type="button" onclick='resetTask4();'>Сброс!</button>
-
-    <h1>5)</h1>
-
-    <p id="Task5">Для указанного возраста студента вывести фразу вида "22 года" ( 1 год, 20 лет....).</p>
-
-    <input id="inpTask5" type="number" min="1" max="100" required>
-    <button type="button" onclick='task5();'>Вывести!</button>
-    <button type="button" onclick='resetTask5();'>Сброс!</button>
-
-    <h1>6)</h1>
-
-    <p id="Task6">Пользователь вводит две даты (в формате "October 13, 2014 11:13:00"). Вычислить промежуток времени прошедший между датами.</p>
-
-    <input id="inpTask6-1" type="text" pattern=
-    "((January|March|April|May|June|July|August|September|October|November|December) ([3][0-1]|[1-2][0-9]|[1-9])|
-    February ([2][0-8]|[1][0-9]|[1-9])), [0-9]{1,4} ([2][0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]" required><br><br>
-    <input id="inpTask6-2" type="text" pattern=
-    "((January|March|April|May|June|July|August|September|October|November|December) ([3][0-1]|[1-2][0-9]|[1-9])|
-    February ([2][0-8]|[1][0-9]|[1-9])), [0-9]{1,4} ([2][0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]" required><br><br>
-    <button type="button" onclick='task6();'>Вывести!</button>
-    <button type="button" onclick='resetTask6();'>Сброс!</button>
-
-    <h1>7)</h1>
-
-    <p id="Task7-1">Пользователь вводит дату в формате 2014-12-27, а возвращает знак зодиака в этот день (с картинкой).</p>
-    <div id="Task7-2"></div><br>
-
-    <input id="inpTask7" type="text" pattern="[0-9]{1,4}-([1-9]|[1][0-2])-([3][0-1]|[1-2][0-9]|[1-9])" required><br><br>
-    <button type="button" onclick='task7();'>Вывести!</button>
-    <button type="button" onclick='resetTask7();'>Сброс!</button>
-
-    <h1>8)</h1>
-
-    <p>Пользователь вводит габариты доски (в формате ‘8x8’). Вывести шахматную доску.</p>
-    <div id="Task8"></div><br>
-
-    <input id="inpTask8-1" type="number" min="1" max="50" required><br><br>
-    <input id="inpTask8-2" type="number" min="1" max="50" required><br><br>
-    <button type="button" onclick='task8();'>Вывести!</button>
-    <button type="button" onclick='resetTask8();'>Сброс!</button>
-
-    <h1>9)</h1>
-
-    <p id="Task9">Определить номер подъезда и этаж по номеру квартиры.</p>
-
-    <input id="inpTask9-1" type="number" min="1" max="8" style="width:120px;" placeholder="к-во подъездов" required><br><br>
-    <input id="inpTask9-2" type="number" min="1" max="9" style="width:120px;" placeholder="к-во этажей" required><br><br>
-    <input id="inpTask9-3" type="number" min="1" max="4" style="width:120px;" placeholder="к-во квартир" required><br><br>
-    <input id="inpTask9-4" type="number" min="1" max="288" style="width:120px;" placeholder="№ квартиры" required><br><br>
-    <button type="button" onclick='task9();'>Вывести!</button>
-    <button type="button" onclick='resetTask9();'>Сброс!</button>
-
-    <h1>10)</h1>
-
-    <p id="Task10">Найти сумму цифр введённого числа.</p>
-
-    <input id="inpTask10" type="number" min="1" max="100000" required>
-    <button type="button" onclick='task10();'>Вывести!</button>
-    <button type="button" onclick='resetTask10();'>Сброс!</button>
-
-    <h1>11)</h1>
-
-    <p id="Task11">Дан некий textarea, в который пользователь вводит ссылки через запятую.
-      Когда textarea станет неактивным удалить http:// и https:// из ссылок и вывести их отсортированным по алфавиту списком ссылок.</p>
-
-    <textarea id="inpTask11" style="width:200px;" onfocusout="task11();"></textarea><br><br>
-
-    <button type="button" onclick='resetTask11();'>Сброс!</button>
-
-    <script src="myScript.js"></script>
-  </body>
+    <head lang="ru-UA">
+        <title>Pset 2</title>
+        <meta charset="utf-8"/>
+        <style>
+            .answer {
+                color: blue;
+            }
+            .error {
+                color: red;
+            }
+            .input-task {
+                display: block;
+                margin: 1em 0;
+            }
+            .input-area {
+                display: block;
+                margin: 1em 0;
+                width: 400px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--Task1-->
+        <p>1)</p>
+        <p>Посчитать сумму чисел от -1000 до 1000.</p>
+        <button id="task1-button" type="button">Посчитать!</button>
+        <button id="task1-reset" type="button">Сброс!</button>
+        <p><span id="task1" class="answer"></span></p>
+        <!--Task2-->
+        <p>2)</p>
+        <p>Посчитать сумму чисел от -1000 до 1000, суммируя только числа
+        которые заканчиваются на 2,3, и 7.</p>
+        <button id="task2-button" type="button">Посчитать!</button>
+        <button id="task2-reset" type="button">Сброс!</button>
+        <p><span id="task2" class="answer"></span></p>
+        <!--Task3-->
+        <p>3)</p>
+        <p>Вывести на страницу список из 50 элементов.</p>
+        <button id="task3-button" type="button">Вывести!</button>
+        <button id="task3-reset" type="button">Сброс!</button>
+        <p><span id="task3" class="answer"></span></p>
+        <!--Task4-->
+        <p>4)</p>
+        <p>Пользователь вводит время в секундах.
+        Вывести в формате: ч:мин:сек (01:05:20).</p>
+        <p>Введите количество секунд:</p>
+        <input id="input-task4" type="number" min="1" max="99999999" required>
+        <button id="task4-button" type="button">Вывести!</button>
+        <button id="task4-reset" type="button">Сброс!</button>
+        <p><span id="task4" class="answer"></span>
+        <span id="error-task4" class="error"></span></p>
+        <!--Task5-->
+        <p>5)</p>
+        <p>Для указанного возраста студента вывести фразу вида "22 года".</p>
+        <p>Введите количество лет:</p>
+        <input id="input-task5" type="number" min="1" max="999999" required>
+        <button id="task5-button" type="button">Вывести!</button>
+        <button id="task5-reset" type="button">Сброс!</button>
+        <p><span id="task5" class="answer"></span>
+        <span id="error-task5" class="error"></span></p>
+        <!--Task6-->
+        <p>6)</p>
+        <p>Пользователь вводит две даты (в формате "October 13, 2014 11:13:00").
+        Вычислить промежуток времени прошедший между датами.</p>
+        <p>Первая дата:</p>
+        <input id="date1-task6" class="input-task" type="text" required>
+        <p>Вторая дата:</p>
+        <input id="date2-task6" class="input-task" type="text" required>
+        <button id="task6-button" type="button">Вывести!</button>
+        <button id="task6-reset" type="button">Сброс!</button>
+        <p><span id="task6" class="answer"></span>
+        <span id="error-task6" class="error"></span></p>
+        <!--Task7-->
+        <p>7)</p>
+        <p>Пользователь вводит дату в формате 2014-12-27,
+        а возвращает знак зодиака в этот день (с картинкой).</p>
+        <p>Введите дату (yyyy-mm-dd):</p>
+        <input id="horoscope-date" class="input-task" type="text" required>
+        <button id="task7-button" type="button">Вывести!</button>
+        <button id="task7-reset" type="button">Сброс!</button>
+        <p><span id="task7" class="answer"></span>
+        <span id="error-task7" class="error"></span></p>
+        <div id="image-task7"></div>
+        <!--Task8-->
+        <p>8)</p>
+        <p>Пользователь вводит габариты доски (в формате ‘8x8’).
+        Вывести шахматную доску.</p>
+        <p>Значение высоты:</p>
+        <input id="chessboard-height" class="input-task" type="number"
+        min="1" max="50" required>
+        <p>Значение ширины:</p>
+        <input id="chessboard-width" class="input-task" type="number"
+        min="1" max="50" required>
+        <button id="task8-button" type="button">Вывести!</button>
+        <button id="task8-reset" type="button">Сброс!</button>
+        <p><span id="error-task8" class="error"></span></p>
+        <div id="task8"></div>
+        <!--Task9-->
+        <p>9)</p>
+        <p>Определить номер подъезда и этаж по номеру квартиры.</p>
+        <p>Количество подъездов:</p>
+        <input id="porches-task9" class="input-task" type="number"
+        min="1" max="8" required>
+        <p>Количество этажей:</p>
+        <input id="levels-task9" class="input-task" type="number"
+        min="1" max="9" required>
+        <p>Количество квартир на этаже:</p>
+        <input id="flats-task9" class="input-task" type="number"
+        min="1" max="4" required>
+        <p>Номер интересующей квартиры:</p>
+        <input id="needful-flat-task9" class="input-task" type="number"
+        min="1" max="288" required>
+        <button id="task9-button" type="button">Вывести!</button>
+        <button id="task9-reset" type="button">Сброс!</button>
+        <p><span id="task9" class="answer"></span>
+        <span id="error-task9" class="error"></span></p>
+        <!--Task10-->
+        <p>10)</p>
+        <p>Найти сумму цифр введённого числа.</p>
+        <input id="digit-task10" type="number" min="1" max="999999999" required>
+        <button id="task10-button" type="button">Посчитать!</button>
+        <button id="task10-reset" type="button">Сброс!</button>
+        <p><span id="task10" class="answer"></span>
+        <span id="error-task10" class="error"></span></p>
+        <!--Task11-->
+        <p>11)</p>
+        <p>Дан некий textarea, в который пользователь вводит ссылки
+        через запятую. Когда textarea станет неактивным удалить http:// и
+        https:// из ссылок и вывести их отсортированным по алфавиту списком
+        ссылок.</p>
+        <textarea id="links-task11" class="input-area"
+        onfocusout="task11()"></textarea>
+        <button id="task11-reset" type="button">Сброс!</button>
+        <div><span id="task11" class="answer"></span>
+        <span id="error-task11" class="error"></span></div>
+        <script src="myScript.js"></script>
+    </body>
 </html>
