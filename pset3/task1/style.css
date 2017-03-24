@@ -1,0 +1,44 @@
+.menu {
+    margin: 0 auto;
+    width: 160px;
+    background-color: #ecf0f1;
+    font-family: 'Space Mono', monospace;
+}
+
+.header-content {
+    position: relative;
+    text-align: center;
+    background-color: #1abc9c;
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.header-symbol {
+    position: absolute;
+    right: 5px;
+}
+
+.menu-items {
+    width: 158px;
+    position: absolute;
+    display: none;
+    background-color: inherit;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.menu-item {
+    width: inherit;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.menu-item:hover {
+    background-color: #bdc3c7;
+}
+
+.header-content, .menu-item {
+    cursor: pointer;
+}
