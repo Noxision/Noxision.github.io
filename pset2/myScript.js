@@ -88,37 +88,26 @@ function task4() {
     var inpObj = getElem("input-task4");
 
     /* Условие даного типа проверяет валидность и выводит сообщение
-    при несоответствии введенных данных */
-    if (inpObj.checkValidity() == false) {
+     при несоответствии введенных данных */
+    if (!inpObj.checkValidity()) {
         resetValidation("task4");
         print("error-task4", inpObj.validationMessage);
     } else {
         resetValidation("error-task4");
         var output = "";
 
-        /* Исходя из того что в сутках 86400 секунд команда ниже
-        изымает из введенного значения количество целых суток,
-        которое не выводится пользователю (по условию задачи)
-        и приводит его к суточному значению.*/
-        inpObj = inpObj.value % 86400;
+        inpObj = inpObj.value;
 
-        /* Условие ниже на основании того что на часах "24:00:00" == "00:00:00"
-         определяет настоящее количество прошедшего времени. */
-        if (inpObj == 0) {
-            print("task4", "Ответ: 24:00:00");
-        } else {
+        // Вычисление количества часов, минут, секунд
+        var hours = Math.floor(inpObj / 3600);
+        var mints = Math.floor((inpObj - hours * 3600) / 60);
+        var secds = Math.floor(inpObj - hours * 3600 - mints * 60);
 
-            // Вычисление количества часов, минут, секунд
-            var hours = Math.floor(inpObj / 3600);
-            var mints = Math.floor((inpObj - hours * 3600) / 60);
-            var secds = Math.floor(inpObj - hours * 3600 - mints * 60);
+        output += makeOutStr(hours)
+            + ":" + makeOutStr(mints)
+            + ":" + makeOutStr(secds);
 
-            output  += makeOutStr(hours)
-                    + ":" + makeOutStr(mints)
-                    + ":" + makeOutStr(secds);
-
-            print("task4", "Ответ: " + output);
-        }
+        print("task4", "Ответ: " + output);
     }
 }
 
@@ -145,7 +134,7 @@ click("task5-reset", resetTask5);
 
 function task5() {
     var inpObj = getElem("input-task5");
-    if (inpObj.checkValidity() == false) {
+    if (!inpObj.checkValidity()) {
         resetValidation("task5");
         print("error-task5", inpObj.validationMessage);
     } else {
@@ -156,17 +145,16 @@ function task5() {
         var lastDigit = inpObj % 10;
 
         // Условие ниже добавляет правильное имя существительное для падежа.
-        if (11 <= getLastDigits(inpObj) && getLastDigits(inpObj) <= 19) {
-            output += inpObj + " лет";
-        } else if (0 == lastDigit || (5 <= lastDigit && lastDigit <= 9)) {
-            output += inpObj + " лет";
-        } else if (1 == lastDigit) {
+        if (1 < lastDigit && lastDigit < 5 &&
+            (11 > getLastDigits(inpObj) || getLastDigits(inpObj) > 19)) {
+            output += inpObj + " года";
+        } else if (lastDigit == 1 && getLastDigits(inpObj) != 11) {
             output += inpObj + " год";
         } else {
-            output += inpObj + " года";
+            output += inpObj + " лет";
         }
 
-    return print("task5", "Ответ: " + output);
+        return print("task5", "Ответ: " + output);
     }
 }
 
@@ -188,123 +176,79 @@ function resetTask5() {
 click("task6-button", task6);
 click("task6-reset", resetTask6);
 
-var patternTask6 = "((January|March|April|May|June|July|August|September|\
-October|November|December) ([3][0-1]|[1-2][0-9]|[1-9])|February \
-([2][0-8]|[1][0-9]|[1-9])), [0-9]{1,4} ([2][0-3]|[0-1][0-9]):\
-[0-5][0-9]:[0-5][0-9]";
-
 function task6() {
+
+    // Шаблон, которому должна соответствовать вводимая строка
+    var patternTask6 = "((January|March|April|May|June|July|August|September|"
+        + "October|November|December) ([3][0-1]|[1-2][0-9]|[1-9])"
+        + "|February ([2][0-8]|[1][0-9]|[1-9])), [0-9]{1,4}"
+        + " ([2][0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]";
+
     getElem("date1-task6").pattern = patternTask6;
     getElem("date2-task6").pattern = patternTask6;
 
     var date1 = getElem("date1-task6");
     var date2 = getElem("date2-task6");
 
-    if (date1.checkValidity() == false) {
+    if (!date1.checkValidity()) {
         resetValidation("task6");
         print("error-task6", "Дата 1: " + date1.validationMessage);
-    } else if (date2.checkValidity() == false) {
+    } else if (!date2.checkValidity()) {
         resetValidation("task6");
         print("error-task6", "Дата 2: " + date2.validationMessage);
     } else {
         resetValidation("error-task6");
-        date1 = new Date(date1.value);
-        date2 = new Date(date2.value);
 
-        var time = [];
-        var str = "";
 
-        time = getTime(time, date1, date2);
+        date1 = moment(date1.value);
+        date2 = moment(date2.value);
 
-        print("task6", getString(str, time));
-  }
+        if (date1.isAfter(date2)) {
+            var temp = date2;
+            date2 = date1;
+            date1 = temp;
+        }
+
+        var time = getTime(date1, date2);
+
+        print("task6", getString(time));
+    }
 }
 
-function getTime(time, date1, date2) {
-    var date1_s = date1.getTime();
-    var date2_s = date2.getTime();
+function getTime(date1, date2) {
+    var time = [];
 
-    if (date2_s > date1_s) {
-        var temp = date2;
-        date2 = date1;
-        date1 = temp;
-    }
+    time[0] = date2.diff(date1, 'years');
+    date1.add(time[0], "years");
+    time[1] = date2.diff(date1, 'month');
+    date1.add(time[1], "month");
+    time[2] = date2.diff(date1, 'days');
+    date1.add(time[2], "days");
+    time[3] = date2.diff(date1, 'hours');
+    date1.add(time[3], "hours");
+    time[4] = date2.diff(date1, 'minutes');
+    date1.add(time[4], "minutes");
+    time[5] = date2.diff(date1, 'seconds');
 
-    if (((date1.getTime() - date2.getTime()) / 1000) >= 31536000) {
-        time[0] = date1.getFullYear() - date2.getFullYear();
-    } else {
-        time[0] = 0;
-    }
-
-    if (date1.getMonth() < date2.getMonth()) {
-        time[1] = date1.getMonth() - date2.getMonth() + 12;
-        if (time[0]) {
-            --time[0];
-        }
-    } else if ((date1.getMonth() == date2.getMonth()) &&
-                (date1.getDate() < date2.getDate())) {
-        time[1] = 11;
-        if (time[0]) {
-            --time[0];
-        }
-    } else {
-        time[1] = date1.getMonth() - date2.getMonth();
-    }
-
-    if (date1.getDate() < date2.getDate()) {
-        time[2] = date1.getDate() - date2.getDate() + 30;
-        if (time[1] && time[1] != 11) {
-            --time[1];
-        }
-    } else {
-        time[2] = date1.getDate() - date2.getDate();
-    }
-
-    if (date1.getHours() < date2.getHours()) {
-        time[3] = date1.getHours() - date2.getHours() + 24;
-        if (time[2]) {
-            --time[2];
-        }
-    }   else {
-        time[3] = date1.getHours() - date2.getHours();
-    }
-
-    if (date1.getMinutes() < date2.getMinutes()) {
-        time[4] = date1.getMinutes() - date2.getMinutes() + 60;
-        if (time[3]) {
-            --time[3];
-        }
-    }   else {
-        time[4] = date1.getMinutes() - date2.getMinutes();
-    }
-
-    if (date1.getSeconds() < date2.getSeconds()) {
-        time[5] = date1.getSeconds() - date2.getSeconds() + 60;
-        if (time[4]) {
-            --time[4];
-        }
-    }   else {
-        time[5] = date1.getSeconds() - date2.getSeconds();
-    }
     return time;
 }
 
-function getString(str, time) {
+function getString(time) {
     var words = [["год", "года", "лет"],
-                ["месяц", "месяца", "месяцев"],
-                ["день", "дня", "дней"],
-                ["час", "часа", "часов"],
-                ["минута", "минуты", "минут"],
-                ["секунда", "секунды", "секунд"]];
+        ["месяц", "месяца", "месяцев"],
+        ["день", "дня", "дней"],
+        ["час", "часа", "часов"],
+        ["минута", "минуты", "минут"],
+        ["секунда", "секунды", "секунд"]];
 
-    str = "Между датами прошло";
+    var str = "Между датами прошло";
     var temp = str;
     for (var i = 0; i < 6; ++i) {
         // Отсеивание пустых значений
         if (time[i] == 0) continue;
         str += checkTheWords(time[i], words[i]);
     }
-    if(str == temp) {
+    if (str == temp) {
         str = "Нисколько не прошло";
     }
     return str;
@@ -317,15 +261,15 @@ function checkTheWords(time, words) {
     var lastDigit = time % 10;
 
     // Условие ниже добавляет правильное имя существительное для падежа.
-    if (11 <= getLastDigits(time) && getLastDigits(time) <= 19) {
-        output += time + " " + words[2];
-    } else if (0 == lastDigit || (5 <= lastDigit && lastDigit <= 9)) {
-        output += time + " " + words[2];
-    } else if (1 == lastDigit) {
+    if (1 < lastDigit && lastDigit < 5 &&
+        (11 > getLastDigits(time) || getLastDigits(time) > 19)) {
+        output += time + " " + words[1];
+    } else if (lastDigit == 1 && getLastDigits(time) != 11) {
         output += time + " " + words[0];
     } else {
-        output += time + " " + words[1];
+        output += time + " " + words[2];
     }
+
     return output;
 }
 
@@ -340,14 +284,14 @@ function resetTask6() {
 click("task7-button", task7);
 click("task7-reset", resetTask7);
 
-var patternTask7 = "[0-9]{4}-([0][1-9]|\
-[1][0-2])-([3][0-1]|[1-2][0-9]|[0][1-9])";
-
 function task7() {
-    getElem("horoscope-date").pattern = patternTask7;
+    getElem("horoscope-date").pattern = "[0-9]{4}-([0][1-9]|" +
+        "[1][0-2])-([3][0-1]|" +
+        "[1-2][0-9]|[0][1-9])";
+
     var date = getElem("horoscope-date");
 
-    if (date.checkValidity() == false) {
+    if (!date.checkValidity()) {
         resetValidation("task7");
         resetValidation("image-task7");
         print("error-task7", date.validationMessage);
@@ -359,18 +303,18 @@ function task7() {
 
         // Массив со знаками гороскопа
         var horoscope = [[''],
-                        [20,'Козерог'],
-    	                [18,'Водолей'],
-    	                [20,'Рыбы'],
-    	                [19,'Овен'],
-    	                [20,'Телец'],
-    	                [21,'Близнецы'],
-    	                [22,'Рак'],
-    	                [22,'Лев'],
-    	                [22,'Дева'],
-    	                [23,'Весы'],
-    	                [22,'Скорпион'],
-    	                [21,'Стрелец']];
+            [20, 'Козерог'],
+            [18, 'Водолей'],
+            [20, 'Рыбы'],
+            [19, 'Овен'],
+            [20, 'Телец'],
+            [21, 'Близнецы'],
+            [22, 'Рак'],
+            [22, 'Лев'],
+            [22, 'Дева'],
+            [23, 'Весы'],
+            [22, 'Скорпион'],
+            [21, 'Стрелец']];
 
         // Условие ниже определяет месяц гороскопа
         if (day > horoscope[month][0]) {
@@ -381,7 +325,7 @@ function task7() {
         }
 
         print("task7", horoscope[month][1]);
-        print("image-task7", '<img src="img/'+ month +'.jpg">');
+        print("image-task7", '<img src="img/' + month + '.jpg">');
     }
 }
 
@@ -400,10 +344,10 @@ click("task8-reset", resetTask8);
 function task8() {
     var height = getElem("chessboard-height");
     var width = getElem("chessboard-width");
-    if (height.checkValidity() == false) {
+    if (!height.checkValidity()) {
         resetValidation("task8");
         print("error-task8", "Значение высоты: " + height.validationMessage);
-    } else if (width.checkValidity() == false) {
+    } else if (!width.checkValidity()) {
         resetValidation("task8");
         print("error-task8", "Значение ширины: " + width.validationMessage);
     } else {
@@ -412,21 +356,21 @@ function task8() {
 
         // Создание стиля для доски
         var style =
-        'style="border: 1px solid black; border-collapse: collapse;"';
+            'style="border: 1px solid black; border-collapse: collapse;"';
 
         // Создание таблицы для доски
         var output = '<table ' + style + ' >';
-        for (i = 0; i < height; ++i) {
+        for (var i = 0; i < height; ++i) {
             output += '<tr ' + style + ' >';
-            for(j = 0; j < width; ++j) {
+            for (var j = 0; j < width; ++j) {
                 var color = "";
 
                 // Изменение цвета ячейки
-                (i+j)%2 == 0 ? color = "yellow;" : color = "black;";
+                (i + j) % 2 == 0 ? color = "yellow;" : color = "black;";
 
                 // Отрисовывание клетки
                 output += '<td style="width:30px;height:30px;background-color:'
-                          + color + '" ></td>';
+                    + color + '" ></td>';
             }
             output += '</tr>';
         }
@@ -452,16 +396,16 @@ function task9() {
     var levels = getElem("levels-task9");
     var flats = getElem("flats-task9");
     var numberFlat = getElem("needful-flat-task9");
-    if (porches.checkValidity() == false) {
+    if (!porches.checkValidity()) {
         resetValidation("task9");
         print("error-task9", "Подъезды: " + porches.validationMessage);
-    } else if (levels.checkValidity() == false) {
+    } else if (!levels.checkValidity()) {
         resetValidation("task9");
         print("error-task9", "Этажи: " + levels.validationMessage);
-    } else if (flats.checkValidity() == false) {
+    } else if (!flats.checkValidity()) {
         resetValidation("task9");
         print("error-task9", "Квартиры на этаже: " + flats.validationMessage);
-    } else if (numberFlat.checkValidity() == false) {
+    } else if (!numberFlat.checkValidity()) {
         resetValidation("task9");
         print("error-task9", "№ квартиры: " + numberFlat.validationMessage);
     } else {
@@ -472,7 +416,7 @@ function task9() {
         numberFlat = numberFlat.value;
 
         // Наибольшее количество квартир в доме
-        allFlats = porches * flats * levels;
+        var allFlats = porches * flats * levels;
 
         // Определение существования искомой квартиры в доме
         if (numberFlat > allFlats) {
@@ -491,16 +435,16 @@ function findLocation(flats, levels, numberFlat) {
 
     // Искомый подъезд
     var porcheLocation = 0;
-    for (var temp = numberFlat; temp > 0; ++porcheLocation) {
-        numberFlat = temp;
-        temp -= flatsInPorche;
+    for (var i = numberFlat; i > 0; ++porcheLocation) {
+        numberFlat = i;
+        i -= flatsInPorche;
     }
 
     // Искомый этаж
     var levelLocation = 0;
-    for (var temp = numberFlat; temp > 0; ++levelLocation) {
-        numberFlat = temp;
-        temp -= flats;
+    for (var j = numberFlat; j > 0; ++levelLocation) {
+        numberFlat = j;
+        j -= flats;
     }
     return "Подъезд: " + porcheLocation + ",  этаж: " + levelLocation;
 }
@@ -521,27 +465,20 @@ click("task10-reset", resetTask10);
 
 function task10() {
     var inpObj = getElem("digit-task10");
-    if (inpObj.checkValidity() == false) {
+    if (!inpObj.checkValidity()) {
         resetValidation("task10");
         print("error-task10", inpObj.validationMessage);
     } else {
         resetValidation("error-task10");
 
-        inpObj = inpObj.value;
+        inpObj = inpObj.value.split("");
 
-        var output = 0;
-        output = getSum(inpObj, output);
+        var output = inpObj.reduce(function (a, b) {
+            return (parseInt(a) + parseInt(b));
+        });
 
         print("task10", output);
     }
-}
-
-function getSum(inpObj, output) {
-    if (inpObj <= 0)
-        return output;
-    output += inpObj % 10;
-    inpObj = Math.floor(inpObj / 10);
-    return getSum(inpObj, output);
 }
 
 function resetTask10() {
@@ -558,7 +495,6 @@ function task11() {
 
     // Разбирание строки на отдельные ссылки
     var links = inpObj.split(",");
-    var output = "";
 
     for (var i = 0; i < links.length; ++i) {
 
@@ -574,12 +510,12 @@ function task11() {
     links.sort();
 
     // Создание списка
-    output = "<ol>";
-    for (var i = 0; i < links.length; ++i) {
-        if (typeof links[i][0] != "undefined" &&
-            typeof links[i][1] != "undefined") {
-            output += '<li><a href="' + links[i][1] +
-                      "//" + links[i][0] + '">' + links[i][0] + '</a></li>';
+    var output = "<ol>";
+    for (var j = 0; j < links.length; ++j) {
+        if (typeof links[j][0] != "undefined" &&
+            typeof links[j][1] != "undefined") {
+            output += '<li><a href="' + links[j][1] +
+                "//" + links[j][0] + '">' + links[j][0] + '</a></li>';
         }
     }
 

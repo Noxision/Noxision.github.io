@@ -13,13 +13,13 @@ $(document).ready(function () {
         $("html, body").animate({scrollTop: 0}, "slow");
     });
 
-    $(".nav-item").click(function () {
+    $(".nav-item").on( 'click', function (e) {
         var scrollTo = $(this.getAttribute("href"));
         $("html, body").animate({
             scrollTop: scrollTo.offset().top -
                        ($(window).height() -
                        scrollTo.outerHeight(true)) / 2
         }, "slow");
-        return false;
+        e.preventDefault();
     });
 });
