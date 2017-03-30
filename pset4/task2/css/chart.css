@@ -1,0 +1,30 @@
+.chart_form {
+    border: 2px solid #4CAF50;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.control_form {
+    margin: 5px;
+}
+
+.control_button {
+    font-family: 'Sofia';
+    font-size: 22px;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: none;
+    background-color: #4CAF50;
+}
+
+.control_button:hover {
+    cursor: pointer;
+}
+
+#chart_div {
+    width: 400px;
+    margin: 0 auto;
+}

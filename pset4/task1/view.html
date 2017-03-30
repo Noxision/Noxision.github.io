@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru-UA">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <link rel="stylesheet" href="view.css">
+</head>
+<body>
+<div class="task_item">
+    <p>Задание 1</p>
+    <p>посчитать сумму чисел от -1000 до 1000</p>
+    <div>Ответ: <?php resultTask1(); ?></div>
+</div>
+<div class="task_item">
+    <p>Задание 2</p>
+    <p>посчитать сумму чисел от -1000 до 1000, суммируя только числа,
+        которые заканчиваются на 2,3, и 7</p>
+    <div>Ответ: <?php resultTask2(); ?></div>
+</div>
+<div class="task_item">
+    <p>Задание 3</p>
+    <p> вывести на страницу список из 50 элементов вида:</p>
+
+    <form class="task_form" action="index.php" method="post">
+        <input name="task3" type="submit" value="Do it!">
+    </form>
+    <form class="task_form" action="index.php" method="post">
+        <input name="reset" type="submit" value="Reset!">
+    </form>
+
+    <div>Ответ:</div>
+    <?php echo $dataTask3; ?>
+</div>
+<div class="task_item">
+    <p>Задание 4</p>
+    <p> Шахматная доска </p>
+    <form class="task_form" action="index.php" method="post">
+        <p>Значение высоты:</p>
+        <input name="board_height" class="input-task" type="number"
+               min="1" max="50" required>
+        <p>Значение ширины:</p>
+        <input name="board_width" class="input-task" type="number"
+               min="1" max="50" required>
+        <input name="task4" type="submit" value="Do it!">
+    </form>
+    <form class="task_form" action="index.php" method="post">
+        <input name="reset" type="submit" value="Reset!">
+    </form>
+    <div>Ответ:</div>
+    <?php echo $dataTask4; ?>
+</div>
+<div class="task_item">
+    <p>Задание 5</p>
+    <p> Найти сумму цифр введённого числа. </p>
+    <form class="task_form" action="index.php" method="post">
+        <p>Значение:</p>
+        <input name="number" class="input-task" type="number"
+               min="1" required>
+        <input name="task5" type="submit" value="Do it!">
+    </form>
+    <form class="task_form" action="index.php" method="post">
+        <input name="reset" type="submit" value="Reset!">
+    </form>
+    <div>Ответ:<?php echo $dataTask5; ?></div>
+</div>
+</body>
+</html>

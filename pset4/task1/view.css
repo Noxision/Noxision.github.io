@@ -1,0 +1,18 @@
+.task_item {
+    margin-bottom: 5px;
+}
+
+.task_item > p:first-child {
+    font-weight: bold;
+}
+
+.input-task {
+    display: block;
+    width: 200px;
+}
+
+.task_form input[type="submit"] {
+    margin: 5px 0;
+    width: 100px;
+    text-align: center;
+}
