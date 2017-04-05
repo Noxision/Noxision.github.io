@@ -1,0 +1,44 @@
+.text_field {
+    height: 300px;
+    margin: 46px auto 0 auto;
+    background-color: #fffecd;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.text_field, .text_input {
+    width: 598px;
+}
+
+.text_field, .text_input button, .text_input input {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.text_field div {
+    margin: 24px;
+    word-wrap: break-word;
+}
+
+.text_input {
+    margin: 26px auto;
+}
+
+.text_input button {
+    float: right;
+    background-color: #635960;
+    color: white;
+    width: 120px;
+    cursor: pointer;
+}
+
+.text_input input {
+    padding: 0 24px;
+    width: 404px;
+}
+
+.text_input button, .text_input input {
+    font-size: 20px;
+    border: none;
+    outline: none;
+    height: 42px;
+}

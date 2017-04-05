@@ -1,15 +1,18 @@
 $(document).ready(function () {
-    $(".header-content").click(function (e) {
+    $(".header-content").on("click", function (e) {
         e.stopPropagation();
-        $(".menu-items").slideToggle("slow");
+        var items = $(".menu-items");
+        if (!items.is(":animated")) {
+            items.slideToggle("slow");
+        }
     });
 
-    $(".menu-item").click(function () {
+    $(".menu-item").on("click", function () {
         $(".header-data").text($(this).text());
-        $(".menu-items").slideToggle("slow");
+        $(".menu-items").slideUp("slow");
     });
 
-    $(window).click(function () {
+    $(window).on("click", function () {
         $(".menu-items").slideUp("slow");
     });
 });
