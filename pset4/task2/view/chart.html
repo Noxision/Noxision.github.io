@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en-UA">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <title>Task 2</title>
+    <link href='//fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="../task2/css/chart.css">
     <!--Load the AJAX API-->
     <script type="text/javascript"
@@ -27,11 +28,11 @@
             data.addColumn('string', 'Color');
             data.addColumn('number', 'Voices');
             data.addRows([
-                ['Red', dataObject["red"]],
-                ['Blue', dataObject["blue"]],
-                ['Gray', dataObject["gray"]],
-                ['Purple', dataObject["purple"]],
-                ['Green', dataObject["green"]]
+                ['Red', dataObject['red']],
+                ['Blue', dataObject['blue']],
+                ['Gray', dataObject['gray']],
+                ['Purple', dataObject['purple']],
+                ['Green', dataObject['green']]
             ]);
 
             // Set chart options
@@ -43,9 +44,14 @@
             };
 
             // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization
-                .PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            if(dataObject.length != 0){
+                var chart = new google.visualization
+                    .PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }else{
+                document.getElementById('chart_div')
+                    .append('Sorry, we haven\'t voices yet');
+            }
         }
     </script>
 </head>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-UA">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <title>Task 2</title>
@@ -8,21 +8,26 @@
 </head>
 <body>
 <form class="chart_form" action="chart.php" method="post">
-    <legend>Choose Your favorite color:</legend>
-    <div class="choose_radio"><input type="radio" name="name" value="red"
-                                     checked="checked">Red
+    <p>Choose Your favorite color:</p>
+    <div class="choose_radio">
+        <input type="radio" name="name" id="red" value="red" checked="checked">
+        <label for="red">Red</label>
     </div>
-    <div class="choose_radio"><input type="radio" class="index_form_radio"
-                                     name="name" value="blue">Blue
+    <div class="choose_radio">
+        <input type="radio" id="blue" name="name" value="blue">
+        <label for="blue">Blue</label>
     </div>
-    <div class="choose_radio"><input type="radio" class="index_form_radio"
-                                     name="name" value="gray">Gray
+    <div class="choose_radio">
+        <input type="radio" id="gray" name="name" value="gray">
+        <label for="gray">Gray</label>
     </div>
-    <div class="choose_radio"><input type="radio" class="index_form_radio"
-                                     name="name" value="purple">Purple
+    <div class="choose_radio">
+        <input type="radio" id="purple" name="name" value="purple">
+        <label for="purple">Purple</label>
     </div>
-    <div class="choose_radio"><input type="radio" class="index_form_radio"
-                                     name="name" value="green">Green
+    <div class="choose_radio">
+        <input type="radio" id="green" name="name" value="green">
+        <label for="green">Green</label>
     </div>
     <input class="submit_button" type="submit" value="Do it!">
 </form>

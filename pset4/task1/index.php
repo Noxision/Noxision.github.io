@@ -6,7 +6,7 @@ function resultTask1()
     for ($i = -1000; $i <= 1000; ++$i) {
         $data += $i;
     }
-    echo $data;
+    return $data;
 }
 
 // Task2
@@ -19,7 +19,7 @@ function resultTask2()
             $data += $i;
         }
     }
-    echo $data;
+    return $data;
 }
 
 // Task3

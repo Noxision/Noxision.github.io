@@ -14,5 +14,10 @@
 .task_form input[type="submit"] {
     margin: 5px 0;
     width: 100px;
-    text-align: center;
+
+}
+
+.task_form label {
+    display: block;
+    margin: 5px 0;
 }

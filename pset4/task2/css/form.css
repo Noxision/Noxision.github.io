@@ -1,5 +1,5 @@
 body {
-    font-family: 'Sofia';
+    font-family: 'Sofia', Arial, cursive;
     font-size: 22px;
 }
 
@@ -15,12 +15,8 @@ body {
     margin: 5px;
 }
 
-.index_form_radio {
-    margin-right: 15px;
-}
-
 .submit_button {
-    font-family: 'Sofia';
+    font-family: 'Sofia', Arial, cursive;
     font-size: 22px;
     width: 100%;
     padding: 5px;
