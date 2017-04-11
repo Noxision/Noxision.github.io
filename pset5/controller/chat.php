@@ -1,7 +1,5 @@
 <?php
-function generateContent($root)
+function generateContent()
 {
-    $content = file_get_contents("view/chat.html");
-
-    return $content;
+    return file_get_contents('view/chat.html');
 }

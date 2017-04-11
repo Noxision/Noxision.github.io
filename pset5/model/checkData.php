@@ -1,11 +1,10 @@
 <?php
 function userCheck($name, $pass)
 {
-    var_dump($name);
-    $file = "users.json";
+    $file = 'users.json';
 
     if (!file_exists($file)) {
-        $data = array();
+        $data = [];
         $data[$name] = $pass;
         file_put_contents($file, json_encode($data));
         return true;
