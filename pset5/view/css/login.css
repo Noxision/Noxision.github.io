@@ -48,3 +48,11 @@
     border: none;
     outline: none;
 }
+
+p {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 25px auto 0 auto;
+    width: 332px;
+    color: red;
+}

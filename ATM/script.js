@@ -6,6 +6,9 @@ var ATM = {
     // all cash of ATM
     cash: 2000,
 
+    // logs
+    log: '',
+
     // all available users
     users: [
         {number: "0000", pin: "000", debet: 0, type: "admin"}, // EXTENDED
@@ -30,7 +33,7 @@ var ATM = {
 
     // check current debet
     check: function () {
-        if (this.is_auth != false)
+        if (this.is_auth)
             return this.users[this.current_user].debet;
         else {
             return 'You must login';
@@ -39,14 +42,14 @@ var ATM = {
 
     // get cash - available for user only
     getCash: function (amount) {
-        if (this.is_auth != false) {
+        if (this.is_auth) {
             if (this.current_type == 'user') {
                 var user = this.users[this.current_user];
                 if ((user.debet - amount) >= 0) {
                     if ((this.cash - amount) >= 0) {
                         user.debet -= amount;
                         this.cash -= amount;
-                        this.getReport(user.number + " get from account " + amount + " units");
+                        this.sendReport(user.number + " get from account " + amount + " units");
                         return 'The money have been charged';
                     } else {
                         return 'Sorry, ATM has not enough money';
@@ -64,11 +67,11 @@ var ATM = {
 
     // load cash - available for user only
     loadCash: function (amount) {
-        if (this.is_auth != false) {
+        if (this.is_auth) {
             if (this.current_type == 'user') {
                 var user = this.users[this.current_user];
                 user.debet += amount;
-                this.getReport(user.number + " load to account " + amount + " units");
+                this.sendReport(user.number + " load to account " + amount + " units");
                 return 'Money contributed';
             }
             else {
@@ -81,10 +84,10 @@ var ATM = {
 
     // load cash to ATM - available for admin only - EXTENDED
     load_cash: function (addition) {
-        if (this.is_auth != false) {
+        if (this.is_auth) {
             if (this.current_type == 'admin') {
                 this.cash += addition;
-                this.getReport("Administrator load to ATM " + addition + " units");
+                this.sendReport("Administrator load to ATM " + addition + " units");
                 return 'Load cash to ATM - OK!';
             } else {
                 return 'You need administrator rights';
@@ -94,28 +97,30 @@ var ATM = {
         }
     },
 
+    // send report about cash actions
+    sendReport: function (data) {
+        if (this.is_auth) {
+            this.log += data + '\n';
+        } else {
+            return 'You must login';
+        }
+    },
+
     // get report about cash actions - available for admin only - EXTENDED
     getReport: function () {
-        var log = '';
-        return function (data) {
-            if (this.is_auth != false) {
-                if (data) {
-                    log += data + '\n';
-                } else {
-                    if (this.current_type == 'admin') {
-                        return log;
-                    }
-                    return 'You need administrator rights';
-                }
-            } else {
-                return 'You must login';
+        if (this.is_auth) {
+            if (this.current_type == 'admin') {
+                return this.log;
             }
+            return 'You need administrator rights';
+        } else {
+            return 'You must login';
         }
-    }(),
+    },
 
     // log out
     logout: function () {
-        if (this.is_auth != false) {
+        if (this.is_auth) {
             this.is_auth = false;
             this.current_user = false;
             this.current_type = false;
