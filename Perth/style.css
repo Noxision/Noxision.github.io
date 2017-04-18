@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: BLACKJAR;
+    src: url(BLACKJAR.TTF);
+}
+
+body {
+    display: -webkit-inline-flex; /* Safari */
+    display: inline-flex;
+    -webkit-flex-direction: column; /* Safari */
+    flex-direction: column;
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+header {
+    display: -webkit-inline-flex; /* Safari */
+    display: inline-flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    height: 120px;
+}
+
+.logo_float {
+    float: left;
+}
+
+.container {
+    width: 57%;
+    margin: 0 auto;
+}
+
+.nav_float {
+    margin-right: 6px;
+    margin-top: 36px;
+    float: right;
+}
+
+.header_logo {
+    font-family: 'Kaushan Script', cursive;
+    width: 100px;
+    height: 100px;
+    line-height: 74px;
+    background-color: white;
+    text-align: center;
+    color: #03b2e4;
+    font-size: 50px;
+    box-shadow: 14px 14px #03b2e4;
+}
+
+.nav-icon > * {
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+.header_section {
+    position: relative;
+    height: 500px;
+    text-align: right;
+    padding-right: 358px;
+    color: white;
+    padding-top: 32px;
+}
+
+.header_section p {
+    font-family: BLACKJAR, cursive;
+    font-size: 70px;
+}
+
+.header_section div {
+    font-family: sans-serif;
+    margin-top: 20px;
+    font-size: 35px;
+}
+
+.header_section button {
+    margin-top: 46px;
+    outline: none;
+    border: 2px solid white;
+    background-color: inherit;
+    margin-right: 4px;
+    width: 174px;
+    height: 57px;
+    border-radius: 5px;
+    color: white;
+}
+
+.header_section button i {
+    font-size: 14px;
+    margin-left: 14px;
+}
+
+.header_section div span {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.image_container {
+    left: 432px;
+    top: 244px;
+    position: absolute;
+}
+
+.longwind_section {
+    z-index: 1;
+    height: 650px;
+}
+
+header, .header_section {
+    background-image: url("blue-pattern.jpg");
+}
+
+.longwind_section {
+    display: -webkit-inline-flex; /* Safari */
+    display: inline-flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+
+    background-color: #f4f4f4;
+}
+
+.longwind_left {
+    width: 60%;
+    padding: 30px;
+}
+
+.longwind_left img {
+    height: 50px;
+    width: 10px;
+    float: left;
+    margin-right: 10px;
+}
+
+.longwind_left > * {
+    margin-top: 10px;
+}
+
+
