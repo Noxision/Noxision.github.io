@@ -398,7 +398,7 @@ header, .greeting_section {
     }
 
     .longwind_section {
-        height: 90%;
+        height: 550px;
     }
 
     .ipad_image_container {
@@ -448,16 +448,12 @@ header, .greeting_section {
     }
 
     .longwind_section {
-        height: 90%;
+        height: 500px;
     }
 
     .ipad_image_container {
         right: -288px;
         top: 360px;
-    }
-
-    .dribbble_section {
-        height: 472px;
     }
 
     .devices_image_container {
@@ -501,7 +497,7 @@ header, .greeting_section {
     }
 
     .longwind_section {
-        height: 76%;
+        height: 450px;
     }
 
     .longwind {
@@ -558,14 +554,17 @@ header, .greeting_section {
         height: 256px;
     }
 
+    .longwind_section {
+        height: 434px;
+    }
+
     .iphone_image_container {
         left: -150px;
         top: 138px;
     }
 
     .ipad_image_container {
-        right: -346px;
-        top: 342px;
+        display: none;
     }
 
     .dribbble_section {
@@ -580,14 +579,9 @@ header, .greeting_section {
         height: 100%;
     }
 
-    .longwind button {
-        margin-top: 36px;
-    }
-
-    .dribbble_text_container button {
-        margin: 0 auto;
+    .dribbble_text_container button, .longwind button {
+        margin: 40px auto 0 auto;
         display: block;
-        margin-top: 40px;
     }
 
     .social_icons [class*="fa fa-"] {
