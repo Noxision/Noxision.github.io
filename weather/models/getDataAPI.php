@@ -6,10 +6,18 @@ $data = json_decode(file_get_contents($url), true);
 $dataAPI = [];
 
 foreach ($data as $i) {
+    if ($i['WeatherIcon'] >= 12 && $i['WeatherIcon'] <= 18)
+        $sky = 'Rain';
+    elseif ($i['WeatherIcon'] >= 6 && $i['WeatherIcon'] <= 11)
+        $sky = 'Clouds';
+    else
+        $sky = 'Clear';
+
     array_push($dataAPI, array(
         'dt' => $i['EpochDateTime'],
         'main'=> [ 'temp' => ($i['Temperature']['Value'] - 32) / 1.8],
         'dt_txt' => $i['DateTime'],
+        'weather' => [['main' => $sky]],
     ));
 }
 header('Content-Type: application/json');

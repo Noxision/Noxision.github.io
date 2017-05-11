@@ -35,6 +35,10 @@ nav a {
     float: left;
 }
 
+nav a:nth-child(2) {
+    width: 34%;
+}
+
 nav a.active {
     border-bottom: 2px solid #fff;
 }
@@ -42,7 +46,7 @@ nav a.active {
 .container {
     width: 100%;
     margin: 0 auto;
-    max-width: 550px;
+    max-width: 34%;
 }
 
 .clearfix:after {
@@ -93,16 +97,20 @@ nav a.active {
     text-align: right;
 }
 
-.forecast-temperature, .forecast-icon {
+.forecast-temperature {
     font-weight: 800;
     display: inline-block;
 }
 
 .forecast-icon {
-    max-width: 40px;
+    width: 20%;
+    height: 100%;
+    margin-left: 5px;
+    display: inline-block;
 }
 
-.forecast-icon svg {
-    width: 35px;
-    transform: translateY(31%);
+.forecast-icon img{
+    vertical-align: middle;
 }
+
+

@@ -1,57 +1,79 @@
-// How do you?
 $(document).ready(function () {
 
-    $('#json').click(function () {
+    $('#json').on('click', function (e) {
         $.getJSON("data/today.json", function (data) {
             data = data.list;
             appendSection(data);
         });
-        return false;
+        classToggle(this);
+        e.preventDefault();
     });
 
-    $('#data_base').click(function () {
-        $.post('get_data_db.php', function (data) {
+    $('#data_base').on('click', function (e) {
+        $.post('models/getDataDB.php', function (data) {
             appendSection(data);
         });
-        return false;
+        classToggle(this);
+        e.preventDefault();
     });
 
-    $('#API').click(function () {
-        $.post('getDataAPI.php', function (data) {
+    $('#API').on('click', function (e) {
+        $.post('models/getDataAPI.php', function (data) {
             appendSection(data);
         });
-        return false;
+        classToggle(this);
+        e.preventDefault();
     });
+
+    $('.active').trigger('click');
 
     function appendSection(data) {
         var lastStamp = 0;
         var lastTemp = 0;
+        var lastSkyIcon = '';
         var curDate = Date.now() / 1000 | 0;
-        var svg = $('.forecast-icon').html();
         $('.forecast').html("");
         $.each(data.reverse(), function (index, value) {
             if (value.main.temp > 200)
                 var formattedTemp = Math.round(value.main.temp - 273.15);
             else
                 var formattedTemp = Math.round(value.main.temp);
-            str = '<div id="' + 'weather_row_' + index + '" class="hourly-forecast clearfix">' +
+            var icon = iconsHandler(value.weather[0].main);
+            var str = '<div id="' + 'weather_row_' + index + '" class="hourly-forecast clearfix">' +
                 '<div class="forecast-date">' + value.dt_txt + '</div>' +
                 '<div class="forecast-weather">' +
                 '<div class="forecast-temperature">' + formattedTemp + ' &deg;</div>' +
-                '<div class="forecast-icon">' + svg +
+                '<div class="forecast-icon">' + icon +
                 '</div></div></div>';
             $('.forecast').append(str);
 
             if ((curDate - value.dt) < (curDate - lastStamp)) {
                 lastStamp = value.dt;
                 lastTemp = formattedTemp;
+                lastSkyIcon = icon;
             }
-
-            $('.current-temperature').html(lastTemp + " &deg");
-            var daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-            var date = new Date(lastStamp * 1000);
-            $('.date').html(daysInWeek[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1));
         });
+
+        $('.current-temperature').html(lastTemp + ' &deg;');
+        var daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        var date = new Date(lastStamp * 1000);
+        $('.date').html(daysInWeek[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1));
+        $('.weather-icon').html("");
+        $('.weather-icon').append(lastSkyIcon);
+    }
+
+    function iconsHandler(weatherSky) {
+        var sky = {
+            'Clear': '002-sun.svg',
+            'Rain': '003-rain.svg',
+            'Clouds': '005-sky.svg'
+        };
+        return '<img src="img/icons/' + sky[weatherSky] + '" alt="Weather icon">';
+    }
+
+    function classToggle(elem) {
+        $('.active').toggleClass('active');
+        $(elem).toggleClass('active');
     }
 });
