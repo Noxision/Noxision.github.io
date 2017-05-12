@@ -16,7 +16,7 @@ foreach ($data as $i) {
     array_push($dataAPI, array(
         'dt' => $i['EpochDateTime'],
         'main'=> [ 'temp' => ($i['Temperature']['Value'] - 32) / 1.8],
-        'dt_txt' => $i['DateTime'],
+        'dt_txt' => gmdate("Y-m-d H:i:s", $i['EpochDateTime']),
         'weather' => [['main' => $sky]],
     ));
 }
