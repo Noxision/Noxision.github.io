@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    error_reporting(E_ALL);
+
     if (!isset($_SESSION['id'])) {
         $controller = 'login';
     } else {

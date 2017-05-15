@@ -1,15 +1,9 @@
 <?php
 function userCheck($name, $pass)
 {
-    $serverName = 'localhost';
-    $username = 'root';
-    $dbName = 'easy_chat';
+    require 'dbConnect.php';
 
-    $conn = mysqli_connect($serverName, $username, '', $dbName);
-
-    if (!$conn) {
-        die('Connection failed: ' . mysqli_connect_error());
-    }
+    $conn = connect();
 
     $name = mysqli_real_escape_string($conn, $name);
     $pass = mysqli_real_escape_string($conn, $pass);
@@ -20,7 +14,7 @@ function userCheck($name, $pass)
 
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if ($row['name'] == $name && $row['password'] == $pass) {
+        if ($row['name'] == $name && password_verify($pass, $row['password'])) {
             mysqli_free_result($result);
             mysqli_close($conn);
             $_SESSION['id'] = $row['id'];
@@ -37,7 +31,8 @@ function userCheck($name, $pass)
     } else {
         mysqli_free_result($result);
 
-        $sql = sprintf("INSERT INTO users (name, password) VALUES ('%s', '%s')", $name, $pass);
+        $sql = sprintf("INSERT INTO users (name, password) VALUES ('%s', '%s')",
+            $name, password_hash($pass, PASSWORD_BCRYPT));
         mysqli_query($conn, $sql);
 
         $sql = sprintf("SELECT * FROM users WHERE name = '%s'", $name);

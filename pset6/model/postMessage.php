@@ -2,24 +2,18 @@
 session_start();
 date_default_timezone_set('Europe/Kiev');
 
-$serverName = 'localhost';
-$username = 'root';
-$dbName = 'easy_chat';
+require 'dbConnect.php';
 
 if (isset($_POST['header']) && !empty($_POST['data'])) {
-    addMessages($serverName, $username, $dbName);
-    checkLastMessages($serverName, $username, $dbName);
+    addMessages();
+    checkLastMessages();
 } elseif (isset($_POST['header'])) {
-    checkLastMessages($serverName, $username, $dbName);
+    checkLastMessages();
 }
 
-function addMessages($serverName, $username, $dbName)
+function addMessages()
 {
-    $conn = mysqli_connect($serverName, $username, '', $dbName);
-
-    if (!$conn) {
-        die('Connection failed: ' . mysqli_connect_error());
-    }
+    $conn = connect();
 
     $data = mysqli_real_escape_string($conn, htmlentities($_POST['data']));
 
@@ -31,13 +25,9 @@ function addMessages($serverName, $username, $dbName)
     mysqli_close($conn);
 }
 
-function checkLastMessages($serverName, $username, $dbName)
+function checkLastMessages()
 {
-    $conn = mysqli_connect($serverName, $username, '', $dbName);
-
-    if (!$conn) {
-        die('Connection failed: ' . mysqli_connect_error());
-    }
+    $conn = connect();
 
     $sql = sprintf("SELECT TIME(messages.time) AS time, 
                                 users.name AS name, 
@@ -45,7 +35,7 @@ function checkLastMessages($serverName, $username, $dbName)
                            FROM messages 
                      INNER JOIN users ON messages.users_id = users.id 
                           WHERE messages.time >= DATE_SUB(NOW(), interval 1 hour) 
-                       ORDER BY users.id DESC");
+                       ORDER BY messages.id");
 
     $result = mysqli_query($conn, $sql);
 

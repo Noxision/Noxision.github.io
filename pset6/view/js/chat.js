@@ -30,6 +30,8 @@ $(document).ready(function () {
                     var text = $('<div></div>').html(headerString);
                     $('.text_field').append(text);
                 });
+            } else {
+                $('.text_field').text('');
             }
         });
     }
