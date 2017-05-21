@@ -25,7 +25,28 @@
     -webkit-box-shadow: 1px 1px 2px #888;
     -moz-box-shadow: 1px 1px 2px #888;
     box-shadow: 1px 1px 2px #888;
+}
 
+.drag:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 35px;
+  bottom: -36px;
+  border: 18px solid;
+  border-color: #666 transparent transparent #666;
+}
+
+.drag:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 38px;
+  bottom: -30px;
+  border: 15px solid;
+  border-color: #fff transparent transparent #fff;
 }
 
 .drag input {

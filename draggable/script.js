@@ -1,23 +1,16 @@
 $(document).ready(function () {
+    // Объект отвечающий за методы пузырей
     var bubble = {};
-    var c = $('.container');
 
-    /*if(bubble.get().bubbles > 0) {
-        $.each(bubble.get().bubbles, function (index, value) {
-            bubble.render();
-        })
-    }*/
-
+    // Следующий доступный ID создаваемого пузыря по умолчанию, далее меняется в зависимости от данных полученных с сервера
     bubble.count = 1;
+
+    var c = $('.container');
 
     c.on('dblclick', function (e) {
         var x = e.pageX + 'px';
         var y = e.pageY + 'px';
-
-        bubble.render(x, y);
-        console.log(e.pageY, e.pageX);
-        console.log($('#draggable' + bubble.count).position());
-
+        bubble.put(bubble.render(x, y, ''));
     });
 
     c.on('dblclick', '.drag', function (e) {
@@ -30,57 +23,128 @@ $(document).ready(function () {
             $(this).val($(this).val());
             return false;
         }).focus();
+
+        // Обработчик снятия фокуса с инпута
         $(this).find('input').on('blur', function () {
-            $(this).parent().off('keydown').text($(this).val());
+            var id = parseInt($(this).parent().attr('id').match(/[0-9]+/g)[0]);
+            var text = $(this).val();
+            if (text == '') {
+                $(this).parent().remove();
+                bubble.remove({'id' : id});
+            } else {
+                $(this).parent().off('keydown').text(text);
+                bubble.changeText({'id' : id, 'text' : text});
+            }
         });
 
+        // Обработчик нажатия клавиш Enter и Escape
         $(this).on('keydown', function (e) {
             $(this).off('focusout');
+            var id = parseInt($(this).attr('id').match(/[0-9]+/g)[0]);
+            var text = $(this).find('input').val();
             if (e.which == 13) {
-                $(this).text($(this).find('input').val());
+                if (text == '') {
+                    $(this).remove();
+                    bubble.remove({'id' : id});
+                } else {
+                    $(this).text(text);
+                    bubble.changeText({'id' : id, 'text' : text});
+                }
             } else if (e.which == 27){
                 $(this).text('');
+                bubble.changeText({'id' : id, 'text' : ''});
             }
         });
     });
 
-    bubble.put = function (id, x, y, data) {
-        var content = this.get();
-        content.bubbles[id] = {'width' : x, 'height' : y, 'data' : data};
-        content.nextCount = ++this.count;
-        console.log(JSON.stringify(content));
-        sessionStorage.setItem('content', JSON.stringify(content));
+    // Метод передачи на сервер информации про новый созданный пузыря
+    bubble.put = function (data) {
+        var sendData = {};
+
+        sendData[data.id] = {'left' : data.left, 'top' : data.top, 'text' : ''};
+
+        // Переменная для записи на сервер, которая хранит следующий доступный ID для создаваемого пузыря
+        sendData.nextCount = this.count;
+
+        $.post( 'bubblesStorageModel.php', {'putBubbles' : JSON.stringify(sendData)});
     };
 
+    // Метод для получения и рендеринга пузырей с сервера
     bubble.get = function () {
-        var content = JSON.parse(sessionStorage.getItem('content'));
+        $.post( 'bubblesStorageModel.php', {'getBubbles' : ''}, function( data ) {
+            if (data) {
+                var content = JSON.parse(data);
+                if (content.nextCount) {
 
-        if(content){
-            if(content.nextCount) {
-                this.count = content.nextCount;
+                    // Установка доступного ID
+                    bubble.count = content.nextCount;
+                }
+                if (content.bubbles) {
+
+                    // Рендеринг пузырей с сервера
+                    $.each(content.bubbles, function (index, value) {
+                        bubble.count = index;
+                        bubble.render(value.left + 'px', value.top + 'px', value.text);
+                    });
+                }
             }
-            console.log(content);
-            return content;
-        } else {
-         return {'bubbles' : {}};
-        }
+        });
     };
 
-    bubble.render =  function(x, y) {
-        c.append('<div class="drag" id="draggable' + this.count + '"></div>');
+    // Метод для рендеринга пузырей
+    bubble.render =  function(x, y, data) {
+        var id = this.count;
 
-        $('#draggable' + this.count).css({
+        ++this.count;
+
+        c.append('<div class="drag" id="draggable' + id + '"></div>');
+
+        var draggableObject = $('#draggable' + id);
+
+        draggableObject.css({
             top: y,
             left: x,
             position: 'absolute'
-        }).draggable({
+        });
+
+        draggableObject.draggable({
             cursor: "move",
             cursorAt: { top: 10, left: 50 },
             containment: '.container',
-            scroll: false
-        });
+            scroll: false,
 
-        this.put(this.count, $('#draggable' + this.count).position().left, $('#draggable' + this.count).position().top, '');
+            // Устанавливает обработчик для передачи последних координат на сервер
+            stop: function() {
+                bubble.changePosition({
+                        'id' : id,
+                        'left' : draggableObject.position().left,
+                        'top' : draggableObject.position().top
+                        });
+            }
+        }).text(data);
+
+        return {
+                'id' : id,
+                'left' : draggableObject.position().left,
+                'top' : draggableObject.position().top
+                };
     };
+
+    // Метод передачи координат на сервер
+    bubble.changePosition = function(position) {
+        $.post( 'bubblesStorageModel.php', {'changePosition' : JSON.stringify(position)});
+    }
+
+    // Метод передачи текста на сервер
+    bubble.changeText = function(text) {
+        $.post( 'bubblesStorageModel.php', {'changeText' : JSON.stringify(text)});
+    }
+
+    // Метод передачи ID элемента который подлежит удалению
+    bubble.remove = function(id) {
+        $.post( 'bubblesStorageModel.php', {'remove' : JSON.stringify(id)});
+    }
+
+    bubble.get();
 
 }).disableSelection();
