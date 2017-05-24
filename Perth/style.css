@@ -4,7 +4,7 @@
 }
 
 @font-face {
-    font-family: BLACKJAR;
+    font-family: 'BLACKJAR';
     src: url(BLACKJAR.TTF);
 }
 
@@ -66,7 +66,7 @@ header nav {
 }
 
 .greeting p {
-    font-family: BLACKJAR, cursive;
+    font-family: 'BLACKJAR', cursive;
     font-size: 4.4em;
 }
 
@@ -207,7 +207,7 @@ header nav {
 
 .like_section {
     height: 325px;
-    background-image: url("green-pattern.jpg");
+    background-image: url('green-pattern.jpg');
 }
 
 .like {
@@ -257,7 +257,7 @@ header nav {
     justify-content: center;
 }
 
-.social_icons [class*="fa fa-"] {
+.social_icons [class*='fa fa-'] {
     display: inline-block;
     background-color: inherit;
     color: #535353;
@@ -356,7 +356,7 @@ footer div {
 
 header, .greeting_section {
     width: 100%;
-    background-image: url("blue-pattern.jpg");
+    background-image: url('blue-pattern.jpg');
 }
 
 .container {
@@ -377,33 +377,59 @@ header, .greeting_section {
     margin-left: 14px;
 }
 
-@media only screen and (max-width: 1280px) {
-    body {
-        font-size: 80%;
-    }
+#button-go-top {
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    font-size: 1.5em;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 1;
+    background-color: #f4f4f4;;
+    color: grey;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+}
 
-    .header_logo {
+@media only screen and (max-width: 1280px) {
+    /*body {
+        font-size: 80%;
+    }*/
+
+    /*.header_logo {
         width: 80px;
         height: 80px;
         line-height: 60px;
-    }
+    }*/
 
-    img {
+    /*img {
         height: auto;
         width: 65%;
-    }
+    }*/
 
-    .greeting_section {
+    /*.greeting_section {
         height: 432px;
-    }
+    }*/
 
-    .longwind_section {
+    /*.longwind_section {
         height: 550px;
-    }
+    }*/
 
     .ipad_image_container {
         right: -340px;
-        top: 262px;
+        top: 252px;
+    }
+
+    .devices_image_container {
+        left: -130px;
+        bottom: -47px;
+    }
+
+    .devices_image_container img {
+        width: 65%;
     }
 
     .dribbble_section {
@@ -420,45 +446,56 @@ header, .greeting_section {
 }
 
 @media only screen and (max-width: 1024px) {
-    body {
-        font-size: 70%;
+    .greeting_section {
+        font-size: 90%;
     }
 
-    .header_logo {
+    .greeting_section .container {
+        width: 90%;
+    }
+
+    /*.header_logo {
         width: 60px;
         height: 60px;
         line-height: 45px;
-    }
+    }*/
 
-    header nav {
+    /*header nav {
         margin-top: 20px;
-    }
+    }*/
 
-    img {
+    /*img {
         height: auto;
         width: 50%;
-    }
+    }*/
 
-    .greeting_section {
+    /*.greeting_section {
         height: 372px;
-    }
+    }*/
 
-    .iphone_image_container {
+    /*.iphone_image_container {
         left: -48px;
-    }
+    }*/
 
-    .longwind_section {
+    /*.longwind_section {
         height: 500px;
-    }
+    }*/
 
     .ipad_image_container {
-        right: -288px;
-        top: 360px;
+        right: -260px;
+        top: 420px;
+    }
+
+    .dribbble_text_container {
+        float: none;
+        text-align: justify;
+        width: 100%;
+        padding-top: 45px;
+        max-width: 550px;
     }
 
     .devices_image_container {
-        left: -130px;
-        bottom: -47px;
+        display: none;
     }
 
     .like_section {
@@ -475,12 +512,12 @@ header, .greeting_section {
 }
 
 @media only screen and (max-width: 720px) {
-    body {
+    /*body {
         font-size: 70%;
-    }
+    }*/
 
     .greeting_section {
-        height: 292px;
+        height: 310px;
     }
 
     .greeting {
@@ -492,12 +529,11 @@ header, .greeting_section {
     }
 
     .iphone_image_container {
-        left: -118px;
-        top: 182px;
+        display: none;
     }
 
     .longwind_section {
-        height: 450px;
+        height: 540px;
     }
 
     .longwind {
@@ -506,12 +542,11 @@ header, .greeting_section {
     }
 
     .ipad_image_container {
-        right: -346px;
-        top: 322px;
+        display: none;
     }
 
     .dribbble_section {
-        height: 372px;
+        height: 410px;
     }
 
     .dribbble_text_container {
@@ -542,20 +577,20 @@ header, .greeting_section {
 }
 
 @media only screen and (max-width: 480px) {
-    header {
+    /*header {
         height: 82px;
-    }
+    }*/
 
     body {
-        font-size: 60%;
+        font-size: 70%;
     }
 
     .greeting_section {
-        height: 256px;
+        height: 270px;
     }
 
     .longwind_section {
-        height: 434px;
+        height: 490px;
     }
 
     .iphone_image_container {
@@ -568,7 +603,7 @@ header, .greeting_section {
     }
 
     .dribbble_section {
-        height: 324px;
+        height: 344px;
     }
 
     .like_section {
@@ -584,7 +619,7 @@ header, .greeting_section {
         display: block;
     }
 
-    .social_icons [class*="fa fa-"] {
+    .social_icons [class*='fa fa-'] {
         border: 2px solid #535353;
         border-radius: 35px;
         height: 35px;

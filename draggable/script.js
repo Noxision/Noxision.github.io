@@ -19,16 +19,20 @@ $(document).ready(function () {
         var input = '<input type="text" size="15">';
         var text = $(this).text();
 
-        $(this).text('').append(input).find('input').val(text).on('mousedown dblclick', function () {
-            $(this).val($(this).val());
-            return false;
+        $(this).text('')
+            .append(input)
+            .find('input')
+            .val(text)
+            .on('dblclick', function () {
+                return false;
         }).focus();
 
         // Обработчик снятия фокуса с инпута
         $(this).find('input').on('blur', function () {
             var id = parseInt($(this).parent().attr('id').match(/[0-9]+/g)[0]);
+
             var text = $(this).val();
-            if (text == '') {
+            if (!text) {
                 $(this).parent().remove();
                 bubble.remove({'id' : id});
             } else {
@@ -43,7 +47,7 @@ $(document).ready(function () {
             var id = parseInt($(this).attr('id').match(/[0-9]+/g)[0]);
             var text = $(this).find('input').val();
             if (e.which == 13) {
-                if (text == '') {
+                if (!text) {
                     $(this).remove();
                     bubble.remove({'id' : id});
                 } else {
@@ -61,33 +65,42 @@ $(document).ready(function () {
     bubble.put = function (data) {
         var sendData = {};
 
-        sendData[data.id] = {'left' : data.left, 'top' : data.top, 'text' : ''};
+        sendData[data.id] = {
+                            'left' : data.left,
+                            'top' : data.top,
+                            'text' : ''
+                            };
 
         // Переменная для записи на сервер, которая хранит следующий доступный ID для создаваемого пузыря
         sendData.nextCount = this.count;
 
-        $.post( 'bubblesStorageModel.php', {'putBubbles' : JSON.stringify(sendData)});
+        $.post( 'bubblesStorageModel.php',
+            {'putBubbles' : JSON.stringify(sendData)});
     };
 
     // Метод для получения и рендеринга пузырей с сервера
     bubble.get = function () {
-        $.post( 'bubblesStorageModel.php', {'getBubbles' : ''}, function( data ) {
-            if (data) {
-                var content = JSON.parse(data);
-                if (content.nextCount) {
+        $.post( 'bubblesStorageModel.php',
+            {'getBubbles' : ''},
+            function( data ) {
+                if (data) {
+                    var content = JSON.parse(data);
+                    if (content.nextCount) {
 
-                    // Установка доступного ID
-                    bubble.count = content.nextCount;
-                }
-                if (content.bubbles) {
+                        // Установка доступного ID
+                        bubble.count = content.nextCount;
+                    }
+                    if (content.bubbles) {
 
-                    // Рендеринг пузырей с сервера
-                    $.each(content.bubbles, function (index, value) {
-                        bubble.count = index;
-                        bubble.render(value.left + 'px', value.top + 'px', value.text);
-                    });
+                        // Рендеринг пузырей с сервера
+                        $.each(content.bubbles, function (index, value) {
+                            bubble.count = index;
+                            bubble.render(value.left + 'px',
+                                          value.top + 'px',
+                                          value.text);
+                        });
+                    }
                 }
-            }
         });
     };
 
@@ -113,7 +126,7 @@ $(document).ready(function () {
             containment: '.container',
             scroll: false,
 
-            // Устанавливает обработчик для передачи последних координат на сервер
+            // Обработчик для передачи последних координат на сервер
             stop: function() {
                 bubble.changePosition({
                         'id' : id,
@@ -132,17 +145,20 @@ $(document).ready(function () {
 
     // Метод передачи координат на сервер
     bubble.changePosition = function(position) {
-        $.post( 'bubblesStorageModel.php', {'changePosition' : JSON.stringify(position)});
+        $.post( 'bubblesStorageModel.php',
+            {'changePosition' : JSON.stringify(position)});
     }
 
     // Метод передачи текста на сервер
     bubble.changeText = function(text) {
-        $.post( 'bubblesStorageModel.php', {'changeText' : JSON.stringify(text)});
+        $.post( 'bubblesStorageModel.php',
+            {'changeText' : JSON.stringify(text)});
     }
 
     // Метод передачи ID элемента который подлежит удалению
     bubble.remove = function(id) {
-        $.post( 'bubblesStorageModel.php', {'remove' : JSON.stringify(id)});
+        $.post( 'bubblesStorageModel.php',
+            {'remove' : JSON.stringify(id)});
     }
 
     bubble.get();
