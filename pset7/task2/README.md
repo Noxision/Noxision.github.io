@@ -4,12 +4,12 @@ Easy chat is a simple chat site designed for educational purposes.
 
 #Getting Started
 
-To use the chat, just copy the chat directory to the root directory of your server,
+To use the chat, just copy the chat directory to the root directory of your server, 
 and create a database according to the recommendations listed below.
 
 #Prerequisites
 
-Before copying the chat directory, you will need to install a service capable of
+Before copying the chat directory, you will need to install a service capable of 
 raising a local server on your local machine with a MySQL database (e.g. XAMPP).
 
 Second you need PHP 5 >= 5.5.0, PHP 7;
@@ -21,19 +21,19 @@ https://www.apachefriends.org/ru/index.html
 #Settings for XAMPP
 
 Xampp Virtual Host
-We will configure a Virtual Host in Xampp for a Easy Chat, and in this example,
+We will configure a Virtual Host in Xampp for a Easy Chat, and in this example, 
 we want to configure the domain 'easychat' for our project.
 
-We need to edit httpd-vhosts.conf that is located in
-C:\xampp\apache\conf\extra\httpd-vhosts.conf and add following lines
+We need to edit httpd-vhosts.conf that is located in 
+C:\xampp\apache\conf\extra\httpd-vhosts.conf and add following lines 
 at the end of the file:
 
 VirtualHost for EasyChat
 
 ```
-<VirtualHost easychat.dev:80>
+<VirtualHost easychat:80>
   DocumentRoot "C:\xampp\htdocs\easychat"
-  ServerAdmin easychat.dev
+  ServerAdmin easychat
   <Directory "C:\xampp\htdocs\easychat">
         Options Indexes FollowSymLinks
         AllowOverride All
@@ -41,12 +41,12 @@ VirtualHost for EasyChat
   </Directory>
 </VirtualHost>
 ```
-After this, our apache is listening to 'easychat' connections, but we have to
-configure our hosts file that allows to redirect 'easychat'
-to the localhost that is located in
+After this, our apache is listening to 'easychat' connections, but we have to 
+configure our hosts file that allows to redirect 'easychat' 
+to the localhost that is located in 
 C:\Windows\System32\drivers\etc
 
-IMPORTANT!: To edit this file, maybe we should give access, click properties
+IMPORTANT!: To edit this file, maybe we should give access, click properties 
 and allow your user to modify this file.
 
 Edit hosts file adding our localhost for 'easychat':
@@ -56,7 +56,7 @@ Edit hosts file adding our localhost for 'easychat':
 #	127.0.0.1       localhost
 #	::1             localhost
 
-127.0.0.1        easychat.dev
+127.0.0.1        easychat
 ```
 Save the file.
 
@@ -64,7 +64,7 @@ Copy chat directory to C:\xampp\htdocs\ directory
 
 #Settings for DB (MySQL)
 
-To enter the database, you must have 'admin' user with all rights
+To enter the database, you must have 'admin' user with all rights 
 on localhost and password 'admin'.
 
 All user info can change in model/dbConnect.php

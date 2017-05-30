@@ -1,0 +1,26 @@
+.container {
+    width: 340px;
+    text-align: right;
+}
+
+.input-container {
+    margin: 5px 0;
+}
+
+.choose-form label {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.input-container input {
+    outline-color: #7CBBFF;
+}
+
+.container-2 {
+    margin-top: 50px;
+}
+
+.container-2 input, .container-2 button, .container-2 label {
+    margin: 5px;
+    display: block;
+}

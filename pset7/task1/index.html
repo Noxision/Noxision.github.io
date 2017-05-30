@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>regex</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <form class="choose-form">
+                <label for="JS">JS</label>
+                <input id="JS" type="radio" name="choose" value="JS" checked>
+                <label for="PHP">PHP</label>
+                <input id="PHP" type="radio" name="choose" value="PHP">
+            </form>
+
+            <h1 class="title">Check with JS</h1>
+            <div class="input-container">
+                <label for="ip">IP (v4)</label>
+                <input id="ip" type="text" value="">
+            </div>
+            <div class="input-container">
+                <label for="url">URL</label>
+                <input id="url" type="text" value="">
+            </div>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input id="email" type="text" value="">
+            </div>
+            <div class="input-container">
+                <label for="date">Date (mm/dd/yyyy)</label>
+                <input id="date" type="text" value="">
+            </div>
+            <div class="input-container">
+                <label for="time">Time (hh/mm/ss)</label>
+                <input id="time" type="text" value="">
+            </div>
+        </div>
+        <div class="container-2">
+            <h1>Mark by regexp pattern</h1>
+            <label for="area-regex">Print text here:</label>
+            <textarea id="area-regex" name="name" rows="8" cols="80"></textarea>
+            <label for="input-regex">Print regexp here:</label>
+            <input id="input-regex" type="text" value="">
+            <button class="area-sbmt" type="button" name="button">Mark</button>
+            <div class="area-result"></div>
+        </div>
+    </body>
+</html>

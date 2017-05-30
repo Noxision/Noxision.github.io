@@ -1,0 +1,58 @@
+.login_form {
+    font-family: 'Montserrat', sans-serif;
+    width: 332px;
+    margin: 76px auto;
+    position: relative;
+}
+
+.login_form label {
+    display: inline-block;
+    font-weight: bold;
+    color: #635960;
+}
+
+.login_form input[type="text"], .login_form input[type="password"] {
+    margin: 10px 0 22px 0;
+    padding: 0 16px;
+    background-color: #fffecd;
+    color: grey;
+    font-size: 20px;
+    width: 300px;
+}
+
+.login_form input[type="submit"] {
+    margin-top: 20px;
+    background-color: #635960;
+    color: #fffecd;
+    font-size: 26px;
+    width: inherit;
+    cursor: pointer;
+}
+
+.login_form input[type="submit"]:before {
+    content: '';
+    position: absolute;
+    top: 39px;
+    left: 47px;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 261px;
+    transform: skew(20deg, -8deg);
+    background: linear-gradient(rgba(0, 0, 0, 0.06), transparent);
+}
+
+.login_form input {
+    display: inline-block;
+    height: 46px;
+    border: none;
+    outline: none;
+}
+
+p {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 25px auto 0 auto;
+    width: 332px;
+    color: red;
+}
